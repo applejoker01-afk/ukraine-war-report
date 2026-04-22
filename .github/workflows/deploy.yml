@@ -1,0 +1,87 @@
+name: Deploy Ukraine War Report to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: |
+          cd scripts
+          npm install
+      
+      - name: Create archive folder
+        run: |
+          mkdir -p archive
+      
+      - name: Archive current version
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          cp index.html archive/${DATE}.html
+          echo "Archived: archive/${DATE}.html"
+      
+      - name: Build archive index
+        run: |
+          cd scripts
+          node build-archive.js
+      
+      - name: Generate Note draft
+        run: |
+          cd scripts
+          node post-to-note.js
+        env:
+          PAGES_URL: ${{ secrets.PAGES_URL }}
+      
+      - name: Upload Note draft as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NOTE-DRAFT
+          path: scripts/note-draft.txt
+      
+      - name: Commit archive changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add archive/
+          git diff --staged --quiet || git commit -m "Auto-archive: $(date +%Y-%m-%d)"
+          git push
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

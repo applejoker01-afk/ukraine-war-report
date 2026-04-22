@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウクライナ戦争レポート 2026 - 4年間の戦況と今後の展望</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #005BBB 0%, #FFD500 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><path fill="rgba(255,255,255,0.1)" d="M0,100 Q300,50 600,100 T1200,100 L1200,300 L0,300 Z"/></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .update-date {
+            margin-top: 20px;
+            font-size: 1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 3px solid #005BBB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #005BBB;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #005BBB;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        section {
+            padding: 60px 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            color: #005BBB;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #FFD500;
+            display: inline-block;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            color: #2a5298;
+            margin: 30px 0 20px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #005BBB, #FFD500);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: #005BBB;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #FFD500;
+            border: 4px solid #005BBB;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        .map-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .map-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .weapon-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .weapon-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #005BBB;
+            margin-bottom: 15px;
+        }
+        
+        .weapon-specs {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .spec-value {
+            color: #333;
+        }
+        
+        .chart-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 5px solid #FFD500;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .source-list {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .source-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .source-list li {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .source-list a {
+            color: #005BBB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .source-list a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background: #2a5298;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            margin-top: 20px;
+        }
+        
+        .footer-links a {
+            color: #FFD500;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                flex-direction: column !important;
+                padding-left: 50px;
+            }
+            
+            .timeline-content {
+                width: 100%;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            section {
+                padding: 40px 20px;
+            }
+            
+            .weapon-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇺🇦 ウクライナ戦争レポート 2026</h1>
+            <div class="subtitle">4年間の戦況と今後の展望 - 完全解説</div>
+            <div class="update-date">最終更新：2026年4月22日</div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#timeline">戦況タイムライン</a></li>
+                <li><a href="#situation">現在の戦況</a></li>
+                <li><a href="#weapons">主要兵器解説</a></li>
+                <li><a href="#economy">経済への影響</a></li>
+                <li><a href="#diplomacy">外交・停戦交渉</a></li>
+                <li><a href="#sources">情報源</a></li>
+            </ul>
+        </nav>
+        
+        <section id="overview">
+            <h2>📋 概要</h2>
+            
+            <div class="info-box">
+                <h3>戦争の基本情報</h3>
+                <p><strong>開始日：</strong>2022年2月24日</p>
+                <p><strong>経過期間：</strong>約4年2ヶ月（2026年4月時点）</p>
+                <p><strong>現状：</strong>膠着・消耗戦が継続、停戦交渉進行中</p>
+                <p><strong>占領地域：</strong>ウクライナ全領土の約19.25%（ロシアが占領）</p>
+                <p><strong>難民数：</strong>国外約610万人、国内避難民約648万人</p>
+            </div>
+            
+            <p>2022年2月24日、ロシア連邦がウクライナに対して大規模な軍事侵攻を開始してから、2026年4月で4年以上が経過しました。当初ロシアは首都キーウの制圧を目指しましたが、ウクライナ軍の激しい抵抗により失敗。その後、戦線は東部ドンバス地域を中心に膠着状態が続いています。</p>
+            
+            <p>2025年1月にトランプ政権が発足し、停戦仲介が加速。2026年4月現在、交渉は継続中ですが、領土問題やNATO加盟の扱いを巡り難航しています。一方、戦闘は散発的に継続しており、ロシア軍によるミサイル・ドローン攻撃が都市部を襲い続けています。</p>
+        </section>
+        
+        <section id="timeline">
+            <h2>📅 戦況タイムライン</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022年2月24日</div>
+                        <h3>全面侵攻開始</h3>
+                        <p>ロシア軍が北部・東部・南部から同時侵攻。キーウへの進軍を開始。プーチン大統領は「特別軍事作戦」と称する。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022年3月～4月</div>
+                        <h3>キーウ攻防戦</h3>
+                        <p>ウクライナ軍が首都防衛に成功。ブチャでの虐殺疑惑が発覚。ロシア軍は北部から撤退し、東部・南部に戦力を集中。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022年5月～8月</div>
+                        <h3>ドンバス攻防戦</h3>
+                        <p>ロシア軍がルハンスク州の大部分を制圧。セベロドネツク、リシチャンスクが陥落。マリウポリも完全制圧される。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022年9月</div>
+                        <h3>ウクライナ反攻成功</h3>
+                        <p>ハルキウ州で大規模反攻に成功。ロシア軍は混乱の中で撤退。ウクライナは約6,000平方kmを奪還。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022年11月</div>
+                        <h3>ヘルソン奪還</h3>
+                        <p>ウクライナ軍がヘルソン市を奪還。ロシア軍はドニプロ川東岸に撤退。戦略的要衝の喪失。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023年</div>
+                        <h3>長期消耗戦へ</h3>
+                        <p>ウクライナの夏季反攻は限定的成果にとどまる。両軍とも大きな前進なく、塹壕戦が常態化。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024年</div>
+                        <h3>ロシアの地道な前進</h3>
+                        <p>ロシア軍が人的損失を厭わず、東部で少しずつ前進。ウクライナは弾薬不足に直面。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年1月</div>
+                        <h3>トランプ政権発足</h3>
+                        <p>米国でトランプ第2期政権が始動。「24時間で戦争を終わらせる」と宣言し、停戦仲介を加速。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年11月～12月</div>
+                        <h3>停戦交渉本格化</h3>
+                        <p>トランプ政権が20項目の停戦案を提示。ゼレンスキー大統領はNATO加盟を事実上断念する姿勢を示すも、交渉は難航。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年1月～3月</div>
+                        <h3>膠着状態継続</h3>
+                        <p>ロシアがルハンスク州全域を占領。ドネツク州でも前進するが、ウクライナ軍の抵抗は継続。2025年にロシアは4,336平方kmを新たに占領したが、これは全土の0.6%に過ぎない。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年4月（現在）</div>
+                        <h3>攻撃継続・交渉停滞</h3>
+                        <p>4月16日、ロシア軍がオデーサ、キーウ、ドニプロに大規模ミサイル攻撃。死者17人、負傷者100人以上。停戦交渉は継続するも、妥結の見通し立たず。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="situation">
+            <h2>🗺️ 現在の戦況</h2>
+            
+            <div class="map-container">
+                <h3>2026年4月の支配地域</h3>
+                <svg class="map-image" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                    <!-- ウクライナ本土（簡略版） -->
+                    <path d="M 100,200 L 300,150 L 500,180 L 650,220 L 700,350 L 600,480 L 400,520 L 200,480 L 100,380 Z" 
+                          fill="#005BBB" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- ロシア占領地域（東部・南部） -->
+                    <path d="M 500,180 L 650,220 L 700,350 L 650,420 L 550,450 L 450,430 L 400,350 L 420,250 Z" 
+                          fill="#DC3545" opacity="0.7" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- クリミア -->
+                    <ellipse cx="450" cy="520" rx="80" ry="30" fill="#DC3545" opacity="0.7" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- 主要都市マーカー -->
+                    <circle cx="250" cy="300" r="8" fill="#FFD500" stroke="#333" stroke-width="2"/>
+                    <text x="260" y="305" font-size="14" fill="#333" font-weight="bold">キーウ</text>
+                    
+                    <circle cx="580" cy="280" r="8" fill="#FFD500" stroke="#333" stroke-width="2"/>
+                    <text x="590" y="285" font-size="14" fill="#333" font-weight="bold">ルハンスク</text>
+                    
+                    <circle cx="520" cy="350" r="8" fill="#FFD500" stroke="#333" stroke-width="2"/>
+                    <text x="530" y="355" font-size="14" fill="#333" font-weight="bold">ドネツク</text>
+                    
+                    <circle cx="300" cy="450" r="8" fill="#FFD500" stroke="#333" stroke-width="2"/>
+                    <text x="310" y="455" font-size="14" fill="#333" font-weight="bold">オデーサ</text>
+                    
+                    <circle cx="380" cy="240" r="8" fill="#FFD500" stroke="#333" stroke-width="2"/>
+                    <text x="390" y="245" font-size="14" fill="#333" font-weight="bold">ハルキウ</text>
+                    
+                    <!-- 凡例 -->
+                    <rect x="50" y="50" width="200" height="100" fill="white" stroke="#333" stroke-width="1" opacity="0.9"/>
+                    <rect x="60" y="60" width="30" height="20" fill="#005BBB"/>
+                    <text x="95" y="75" font-size="12" fill="#333">ウクライナ支配地域</text>
+                    <rect x="60" y="90" width="30" height="20" fill="#DC3545" opacity="0.7"/>
+                    <text x="95" y="105" font-size="12" fill="#333">ロシア占領地域</text>
+                    <text x="60" y="130" font-size="10" fill="#666">占領率：約19.25%</text>
+                </svg>
+                <p style="margin-top: 20px; color: #666;">※ 2026年4月時点の概略図。ロシアはルハンスク州全域、ドネツク州の一部、ザポリージャ州北東部、ヘルソン州の一部、クリミア半島を占領中。</p>
+            </div>
+            
+            <h3>戦況の特徴</h3>
+            
+            <div class="info-box">
+                <h4>🔴 膠着状態の継続</h4>
+                <p>2023年以降、戦線はほぼ固定化。ロシア軍は2025年に4,336平方kmを占領したが、これは全土のわずか0.6%。大規模な突破は両軍とも実現できていない。</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>⚡ ドローン戦争の激化</h4>
+                <p>ウクライナは国産長距離ドローンを開発し、ロシア領内の製油所や軍事施設を攻撃。3月だけでロシアの石油関連損失は23億ドルに達したと推定される。</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>🎯 都市への継続的攻撃</h4>
+                <p>ロシア軍は都市部へのミサイル・ドローン攻撃を継続。4月16日の攻撃ではオデーサ、キーウ、ドニプロで17人が死亡。ウクライナ防空システムは巡航ミサイルを100%撃墜したが、弾道ミサイルへの対応には課題が残る。</p>
+            </div>
+            
+            <div class="warning-box">
+                <h4>⚠️ 消耗戦の深刻化</h4>
+                <p>ロシアは2025年だけで20万～30万人の死傷者を出したと推定される。ウクライナ側も深刻な人的・物的損失を被っており、弾薬不足が慢性化している。</p>
+            </div>
+        </section>
+        
+        <section id="weapons">
+            <h2>⚔️ 主要兵器解説</h2>
+            
+            <div class="weapon-grid">
+                <div class="weapon-card">
+                    <div class="weapon-name">HIMARS（ハイマース）</div>
+                    <p>米国供与の高機動ロケット砲システム。ウクライナ軍の主力長距離打撃兵器。</p>
+                    <div class="weapon-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">射程</span>
+                            <span class="spec-value">最大80km</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">精度</span>
+                            <span class="spec-value">CEP 2m以下</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">用途</span>
+                            <span class="spec-value">弾薬庫・司令部破壊</span>
+                        </div>
+                    </div>
+                    <p><strong>戦況への影響：</strong>2022年夏以降、ロシア軍の後方兵站を混乱させ、ウクライナ反攻の鍵となった。</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">パトリオット PAC-3</div>
+                    <p>米国・欧州供与の高性能防空ミサイルシステム。弾道ミサイル迎撃が可能。</p>
+                    <div class="weapon-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">射程</span>
+                            <span class="spec-value">最大160km</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">迎撃高度</span>
+                            <span class="spec-value">最高24km</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">用途</span>
+                            <span class="spec-value">弾道ミサイル迎撃</span>
+                        </div>
+                    </div>
+                    <p><strong>課題：</strong>ミサイル不足が深刻。4月16日の攻撃でも追加のパトリオットミサイルの必要性が指摘された。</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">ウクライナ国産ドローン</div>
+                    <p>長距離攻撃用ドローン。ロシア領内の製油所や軍事施設を攻撃可能。</p>
+                    <div class="weapon-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">射程</span>
+                            <span class="spec-value">推定1,000km以上</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">コスト</span>
+                            <span class="spec-value">数千ドル程度</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">用途</span>
+                            <span class="spec-value">エネルギーインフラ攻撃</span>
+                        </div>
+                    </div>
+                    <p><strong>戦況への影響：</strong>2026年3月、ロシアの石油関連施設に23億ドルの損失を与えたと推定。非対称戦の象徴。</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">Kh-101 巡航ミサイル</div>
+                    <p>ロシア軍の主力長距離巡航ミサイル。戦略爆撃機から発射。</p>
+                    <div class="weapon-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">射程</span>
+                            <span class="spec-value">最大5,500km</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">弾頭重量</span>
+                            <span class="spec-value">400kg</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">用途</span>
+                            <span class="spec-value">都市・インフラ攻撃</span>
+                        </div>
+                    </div>
+                    <p><strong>対策：</strong>ウクライナ防空システムは100%の撃墜率を達成する日もあるが、飽和攻撃には脆弱。</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">Iskander-M 弾道ミサイル</div>
+                    <p>ロシア軍の短距離弾道ミサイル。高速で迎撃が困難。</p>
+                    <div class="weapon-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">射程</span>
+                            <span class="spec-value">最大500km</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">速度</span>
+                            <span class="spec-value">マッハ6-7</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">用途</span>
+                            <span class="spec-value">高価値目標破壊</span>
+                        </div>
+                    </div>
+                    <p><strong>脅威度：</strong>パトリオット以外では迎撃困難。ウクライナにとって最も危険な兵器の一つ。</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">レオパルト2戦車</div>
+                    <p>ドイツ製主力戦車。欧州諸国から供与され、ウクライナ機甲部隊の中核に。</p>
+                    <div class="weapon-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">主砲</span>
+                            <span class="spec-value">120mm滑腔砲</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">装甲</span>
+                            <span class="spec-value">複合装甲</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">速度</span>
+                            <span class="spec-value">最高68km/h</span>
+                        </div>
+                    </div>
+                    <p><strong>課題：</strong>塹壕戦・ドローン戦では機甲部隊の運用が困難。2023年夏季反攻では期待ほどの成果を上げられず。</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="economy">
+            <h2>💰 経済への影響</h2>
+            
+            <h3>エネルギー価格への影響</h3>
+            
+            <div class="chart-container">
+                <canvas id="energyChart"></canvas>
+            </div>
+            
+            <div class="info-box">
+                <h4>📊 エネルギー市場の変化</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>2022年開戦直後、原油価格は一時130ドル/バレルまで急騰</li>
+                    <li>天然ガス価格も欧州で10倍以上に高騰</li>
+                    <li>2024年以降、代替供給源の確保により価格は安定化</li>
+                    <li>2026年4月現在、原油価格は75-85ドル/バレルで推移</li>
+                </ul>
+            </div>
+            
+            <h3>穀物市場への影響</h3>
+            
+            <div class="warning-box">
+                <h4>🌾 世界の食料安全保障</h4>
+                <p>ウクライナとロシアは世界の小麦輸出の約30%を占める。戦争により穀物輸出が大幅に減少し、中東・アフリカで食料危機が深刻化。</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>小麦価格：2022年に40%以上上昇</li>
+                    <li>黒海穀物イニシアティブは2023年7月に破棄</li>
+                    <li>代替ルート（ドナウ川経由）で輸出再開も、量は限定的</li>
+                </ul>
+            </div>
+            
+            <h3>日本経済への影響</h3>
+            
+            <div class="chart-container">
+                <canvas id="japanInflationChart"></canvas>
+            </div>
+            
+            <div class="info-box">
+                <h4>🇯🇵 日本への影響</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>エネルギー：</strong>LNG価格上昇により、電気料金が2022-2023年に30%以上上昇</li>
+                    <li><strong>食料：</strong>小麦・トウモロコシの輸入価格上昇。パン・麺類の値上げ</li>
+                    <li><strong>インフレ：</strong>2022年から物価上昇が加速。2023年にはコアCPIが3%台に</li>
+                    <li><strong>半導体：</strong>ウクライナ産ネオンガスの供給途絶で半導体不足が深刻化</li>
+                    <li><strong>為替：</strong>資源価格高騰により円安が進行（2022年に一時1ドル=150円突破）</li>
+                </ul>
+            </div>
+            
+            <h3>経済制裁の効果</h3>
+            
+            <div class="info-box">
+                <h4>💼 対ロシア経済制裁</h4>
+                <p><strong>主な制裁措置：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>SWIFT（国際銀行間通信協会）からの排除</li>
+                    <li>中央銀行資産の凍結（約3,000億ドル）</li>
+                    <li>石油・天然ガスの段階的禁輸</li>
+                    <li>ハイテク製品の輸出規制</li>
+                    <li>主要企業の市場撤退</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>効果と限界：</strong>ロシア経済は2022年に-2.1%のマイナス成長も、2023年以降は中国・インド経由の迂回貿易で持ち直し。戦争継続能力は維持されている。</p>
+            </div>
+        </section>
+        
+        <section id="diplomacy">
+            <h2>🤝 外交・停戦交渉</h2>
+            
+            <h3>停戦交渉の現状（2026年4月）</h3>
+            
+            <div class="info-box">
+                <h4>📋 トランプ政権の停戦案（20項目）</h4>
+                <p>2025年11月、トランプ政権が提示した主な内容：</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>現在の支配線に基づく停戦（領土問題は後回し）</li>
+                    <li>ウクライナのNATO加盟凍結</li>
+                    <li>緩衝地帯の設置</li>
+                    <li>安全保障の国際的枠組み構築</li>
+                    <li>段階的な経済制裁解除</li>
+                </ul>
+            </div>
+            
+            <h3>各国の立場</h3>
+            
+            <div class="weapon-grid">
+                <div class="weapon-card">
+                    <div class="weapon-name">🇺🇦 ウクライナ</div>
+                    <p><strong>絶対条件：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px; text-align: left;">
+                        <li>領土の完全性（最終的な回復）</li>
+                        <li>安全保障の確実な枠組み</li>
+                        <li>戦争犯罪の追及</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>妥協の可能性：</strong>NATO加盟の事実上断念、一時的な領土喪失の受け入れ</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">🇷🇺 ロシア</div>
+                    <p><strong>絶対条件：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px; text-align: left;">
+                        <li>占領地域のロシア帰属承認</li>
+                        <li>ウクライナのNATO加盟放棄</li>
+                        <li>軍事力の制限</li>
+                        <li>経済制裁の解除</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>姿勢：</strong>交渉継続も、軍事圧力を維持して有利な条件を引き出す戦略</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">🇺🇸 米国</div>
+                    <p><strong>トランプ政権の目標：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px; text-align: left;">
+                        <li>年内の停戦実現（レガシー作り）</li>
+                        <li>米国の負担削減</li>
+                        <li>中国対抗へのリソース集中</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>手段：</strong>ウクライナへの支援継続を条件に交渉を促進</p>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">🇪🇺 欧州</div>
+                    <p><strong>立場：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px; text-align: left;">
+                        <li>ウクライナ支援の継続</li>
+                        <li>力による現状変更を許さない</li>
+                        <li>NATO東方拡大の正当性維持</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>懸念：</strong>支援疲れの拡大、エネルギー安全保障</p>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h4>⚠️ 交渉の課題</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>領土問題：</strong>ロシアは占領地の併合を譲らず、ウクライナは受け入れ不可</li>
+                    <li><strong>安全保障：</strong>NATO加盟なしでウクライナの安全をどう保証するか</li>
+                    <li><strong>信頼性：</strong>ロシアが合意を遵守するかへの懸念</li>
+                    <li><strong>国内政治：</strong>両国とも譲歩すれば政権基盤が揺らぐ可能性</li>
+                </ul>
+            </div>
+            
+            <h3>今後のシナリオ</h3>
+            
+            <div class="info-box">
+                <h4>🔮 可能性のあるシナリオ</h4>
+                
+                <p><strong>① 2026年内の停戦合意（可能性：中）</strong></p>
+                <p>トランプ政権の圧力により、ウクライナが現実路線に転換。占領地の帰属は棚上げにして、事実上の停戦を実現。</p>
+                
+                <p style="margin-top: 15px;"><strong>② 戦争の長期化（可能性：高）</strong></p>
+                <p>交渉が決裂し、2027年以降も消耗戦が継続。ロシアは東部の完全制圧を目指し、ウクライナは西側支援を受けて抵抗を続ける。</p>
+                
+                <p style="margin-top: 15px;"><strong>③ 「凍結された紛争」化（可能性：中）</strong></p>
+                <p>正式な合意なしに戦闘が小康状態に。朝鮮半島のように分断が固定化し、長期的な緊張状態が続く。</p>
+            </div>
+        </section>
+        
+        <section id="sources">
+            <h2>📚 情報源</h2>
+            
+            <div class="source-list">
+                <h3>シンクタンク・研究機関</h3>
+                <ul>
+                    <li>
+                        <strong>ISW（Institute for the Study of War）</strong><br>
+                        米国のシンクタンク。毎日の戦況分析を公開。最も詳細な戦況マップを提供。<br>
+                        <a href="https://www.understandingwar.org/" target="_blank">https://www.understandingwar.org/</a>
+                    </li>
+                    <li>
+                        <strong>日本国際問題研究所（JIIA）</strong><br>
+                        日本の外交・安全保障シンクタンク。戦略アウトルック2026でウクライナ情勢を分析。<br>
+                        <a href="https://www.jiia.or.jp/" target="_blank">https://www.jiia.or.jp/</a>
+                    </li>
+                    <li>
+                        <strong>防衛省防衛研究所（NIDS）</strong><br>
+                        日本の防衛シンクタンク。NIDSコメンタリーでウクライナ戦争の軍事的分析を提供。<br>
+                        <a href="http://www.nids.mod.go.jp/" target="_blank">http://www.nids.mod.go.jp/</a>
+                    </li>
+                    <li>
+                        <strong>IISS（国際戦略研究所）</strong><br>
+                        英国の国際的シンクタンク。Military Balanceで軍事力比較を提供。<br>
+                        <a href="https://www.iiss.org/" target="_blank">https://www.iiss.org/</a>
+                    </li>
+                    <li>
+                        <strong>CSIS（米戦略国際問題研究所）</strong><br>
+                        米国の有力シンクタンク。ウクライナ戦争の戦略分析を継続的に発表。<br>
+                        <a href="https://www.csis.org/" target="_blank">https://www.csis.org/</a>
+                    </li>
+                </ul>
+                
+                <h3 style="margin-top: 30px;">メディア・ニュース</h3>
+                <ul>
+                    <li>
+                        <strong>Ukrinform（ウクルインフォルム）</strong><br>
+                        ウクライナ国営通信社。日本語版で最新ニュースを配信。<br>
+                        <a href="https://www.ukrinform.jp/" target="_blank">https://www.ukrinform.jp/</a>
+                    </li>
+                    <li>
+                        <strong>新潮社Foresight</strong><br>
+                        岩田清文氏による「戦略視点で捉えるウクライナ最新戦況マップ」を随時更新。<br>
+                        <a href="https://www.fsight.jp/" target="_blank">https://www.fsight.jp/</a>
+                    </li>
+                    <li>
+                        <strong>Bloomberg</strong><br>
+                        経済・金融の視点からウクライナ戦争を分析。<br>
+                        <a href="https://www.bloomberg.com/jp/" target="_blank">https://www.bloomberg.com/jp/</a>
+                    </li>
+                    <li>
+                        <strong>日本経済新聞</strong><br>
+                        日本語での包括的な報道。
+                    </li>
+                </ul>
+                
+                <h3 style="margin-top: 30px;">公式機関</h3>
+                <ul>
+                    <li>
+                        <strong>ウクライナ国防省</strong><br>
+                        公式の戦況発表と軍事情報。
+                    </li>
+                    <li>
+                        <strong>NATO（北大西洋条約機構）</strong><br>
+                        加盟国によるウクライナ支援の公式情報。<br>
+                        <a href="https://www.nato.int/" target="_blank">https://www.nato.int/</a>
+                    </li>
+                    <li>
+                        <strong>国際連合</strong><br>
+                        人道状況と難民動向の公式データ。
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="info-box" style="margin-top: 30px;">
+                <h4>💡 情報の信頼性について</h4>
+                <p>戦時中の情報は必ずしも正確ではありません。本レポートは複数の信頼できる情報源を総合的に分析していますが、戦況の詳細や損害規模については推定値を含みます。常に最新情報を確認し、複数の視点から理解することをお勧めします。</p>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2026 ウクライナ戦争レポート - としひで</p>
+            <p style="margin-top: 10px;">このレポートは教育・情報提供を目的としています</p>
+            <div class="footer-links">
+                <a href="#timeline">タイムライン</a>
+                <a href="#situation">戦況</a>
+                <a href="#weapons">兵器</a>
+                <a href="#economy">経済</a>
+                <a href="#diplomacy">外交</a>
+                <a href="#sources">情報源</a>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.9em;">最終更新：2026年4月22日</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // エネルギー価格チャート
+        const energyCtx = document.getElementById('energyChart').getContext('2d');
+        new Chart(energyCtx, {
+            type: 'line',
+            data: {
+                labels: ['2022年1月', '2022年3月', '2022年6月', '2022年12月', '2023年6月', '2024年1月', '2024年6月', '2025年1月', '2025年6月', '2026年1月', '2026年4月'],
+                datasets: [{
+                    label: '原油価格（ドル/バレル）',
+                    data: [85, 130, 120, 80, 75, 78, 82, 85, 80, 78, 82],
+                    borderColor: '#DC3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '原油価格推移（WTI）',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 60,
+                        max: 140,
+                        title: {
+                            display: true,
+                            text: 'ドル/バレル'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 日本のインフレ率チャート
+        const inflationCtx = document.getElementById('japanInflationChart').getContext('2d');
+        new Chart(inflationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2021年', '2022年', '2023年', '2024年', '2025年', '2026年（予測）'],
+                datasets: [{
+                    label: 'コアCPI上昇率（%）',
+                    data: [0.2, 2.3, 3.1, 2.5, 2.0, 1.8],
+                    backgroundColor: [
+                        'rgba(0, 91, 187, 0.6)',
+                        'rgba(220, 53, 69, 0.6)',
+                        'rgba(220, 53, 69, 0.8)',
+                        'rgba(255, 193, 7, 0.6)',
+                        'rgba(40, 167, 69, 0.6)',
+                        'rgba(108, 117, 125, 0.6)'
+                    ],
+                    borderColor: [
+                        '#005BBB',
+                        '#DC3545',
+                        '#DC3545',
+                        '#FFC107',
+                        '#28A745',
+                        '#6C757D'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '日本のインフレ率推移（コアCPI）',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 4,
+                        title: {
+                            display: true,
+                            text: '前年比（%）'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

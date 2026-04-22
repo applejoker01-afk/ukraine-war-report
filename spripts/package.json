@@ -1,0 +1,17 @@
+{
+  "name": "ukraine-war-report-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for Ukraine War Report automation",
+  "main": "post-to-note.js",
+  "scripts": {
+    "archive": "node build-archive.js",
+    "note": "node post-to-note.js"
+  },
+  "keywords": ["ukraine", "war", "report", "automation"],
+  "author": "としひで",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "turndown": "^7.1.2"
+  }
+}
