@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="ウクライナ戦争レポート2026｜ロシア侵攻4年目の全貌">
+<meta property="og:description" content="ロシア・ウクライナ戦争を戦況・兵器・経済の3視点で解説。防衛研究所・JIIA・RIETI・ISWなど多数のシンクタンク分析を統合。">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<title>ウクライナ戦争レポート2026｜ロシア侵攻4年目の全貌と日本への影響</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&family=Oswald:wght@400;700&display=swap');
+:root{
+  --navy:#0d1a0d;--dark-blue:#1a3a1a;--mid-blue:#3a8a3a;--light-blue:#6abf6a;
+  --gold:#c9a84c;--red:#c0392b;--orange:#e67e22;--white:#f0f4f0;--gray:#8899aa;
+  --panel:rgba(255,255,255,0.03);--border:rgba(58,138,58,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-serif;line-height:1.7;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,26,13,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);display:flex;align-items:center;padding:0 24px;height:56px;gap:4px;flex-wrap:wrap;}
+.nav-logo{font-family:'Oswald';font-size:16px;color:var(--gold);letter-spacing:2px;margin-right:16px;white-space:nowrap;text-decoration:none;cursor:pointer;}
+.nav-btn{padding:5px 12px;border-radius:4px;border:1px solid transparent;background:transparent;color:var(--gray);font-size:12px;cursor:pointer;font-family:'Noto Sans JP';transition:all .2s;white-space:nowrap;}
+.nav-btn.active,.nav-btn:hover{background:var(--mid-blue);color:#fff;border-color:var(--mid-blue);}
+
+/* ── SECTIONS ── */
+section{display:none;animation:fadeIn .35s ease;}
+section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.container{max-width:960px;margin:0 auto;padding:40px 24px 80px;}
+
+/* ── HERO ── */
+.hero{text-align:center;padding:60px 24px 48px;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(58,138,58,0.15) 0%,transparent 70%);border-bottom:1px solid var(--border);}
+.hero-eyebrow{font-family:'Oswald';letter-spacing:4px;color:var(--gold);font-size:12px;margin-bottom:14px;text-transform:uppercase;}
+.hero-title{font-family:'Noto Serif JP';font-size:clamp(24px,4vw,48px);font-weight:900;line-height:1.25;margin-bottom:14px;}
+.hero-title span{color:var(--gold);}
+.hero-sub{color:var(--gray);font-size:14px;max-width:640px;margin:0 auto 28px;}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;border:1px solid;}
+.badge-red{border-color:var(--red);color:var(--red);}
+.badge-blue{border-color:var(--mid-blue);color:var(--light-blue);}
+.badge-gold{border-color:var(--gold);color:var(--gold);}
+
+/* ── 台本スタイル ── */
+.script-section{margin-bottom:40px;}
+.script-h1{font-family:'Noto Serif JP';font-size:22px;font-weight:700;color:var(--light-blue);border-bottom:2px solid var(--mid-blue);padding-bottom:8px;margin:36px 0 16px;}
+.script-h2{font-family:'Noto Serif JP';font-size:17px;font-weight:700;color:var(--gold);margin:24px 0 10px;}
+.script-p{font-size:14px;line-height:1.9;color:#ccd8cc;margin-bottom:12px;}
+.note-box{background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);padding:10px 16px;border-radius:0 6px 6px 0;font-size:12px;color:var(--gray);margin:10px 0 16px;font-style:italic;}
+.cue-label{display:inline-block;background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.4);color:#e87c7c;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:4px;margin-bottom:8px;}
+.bullet-list{list-style:none;padding-left:0;margin:8px 0 14px;}
+.bullet-list li{padding:4px 0 4px 20px;position:relative;font-size:14px;color:#ccd8cc;}
+.bullet-list li::before{content:"▶";position:absolute;left:0;color:var(--mid-blue);font-size:10px;top:6px;}
+
+/* ── INFO TABLE ── */
+.info-table{width:100%;border-collapse:separate;border-spacing:0 4px;margin:12px 0 20px;}
+.info-table th{background:var(--dark-blue);color:var(--white);font-size:12px;font-weight:700;padding:10px 14px;text-align:left;}
+.info-table th:first-child{border-radius:6px 0 0 0;}
+.info-table th:last-child{border-radius:0 6px 0 0;}
+.info-table td{padding:9px 14px;font-size:13px;}
+.info-table tr td:first-child{background:rgba(26,58,26,0.5);font-weight:700;color:var(--light-blue);}
+.info-table tr td:last-child{background:rgba(26,58,26,0.25);color:#ccd8cc;}
+
+/* ── WEAPON CARDS ── */
+.weapon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0;}
+.weapon-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .3s;}
+.weapon-card:hover{border-color:var(--mid-blue);transform:translateY(-2px);}
+.weapon-head{padding:16px 18px;display:flex;align-items:flex-start;gap:12px;}
+.weapon-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.weapon-name{font-family:'Oswald';font-size:16px;letter-spacing:1px;margin-bottom:3px;}
+.weapon-type{font-size:11px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;}
+.spec-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 18px;border-top:1px solid rgba(255,255,255,0.05);font-size:12px;gap:8px;}
+.spec-label{color:var(--gray);flex-shrink:0;width:100px;}
+.spec-val{font-weight:700;color:var(--white);text-align:right;font-size:11px;}
+.weapon-tag{display:inline-block;margin:0 18px 14px;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;max-width:860px;margin:0 auto;}
+.timeline::before{content:'';position:absolute;left:110px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--mid-blue),rgba(58,138,58,0.1));}
+.tl-item{display:flex;margin-bottom:6px;position:relative;}
+.tl-date{width:110px;flex-shrink:0;text-align:right;padding-right:24px;padding-top:14px;font-family:'Oswald';font-size:12px;color:var(--gold);line-height:1.3;}
+.tl-dot{position:absolute;left:104px;top:16px;width:14px;height:14px;border-radius:50%;background:var(--mid-blue);border:3px solid var(--navy);z-index:1;}
+.tl-dot.major{background:var(--gold);width:18px;height:18px;left:102px;top:14px;}
+.tl-dot.red-dot{background:var(--red);}
+.tl-dot.blue-dot{background:#3a7fbf;}
+.tl-content{flex:1;padding:12px 18px;margin-left:22px;background:var(--panel);border:1px solid var(--border);border-radius:8px;transition:border-color .2s;}
+.tl-content:hover{border-color:var(--mid-blue);}
+.tl-content.major{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.05);}
+.tl-content.danger{border-color:rgba(192,57,43,0.4);background:rgba(192,57,43,0.05);}
+.tl-content.peace{border-color:rgba(58,127,191,0.4);background:rgba(58,127,191,0.05);}
+.tl-ev{font-weight:700;font-size:14px;margin-bottom:4px;}
+.tl-desc{font-size:12px;color:var(--gray);line-height:1.6;}
+
+/* ── ECONOMY ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0;}
+.kpi-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center;}
+.kpi-num{font-family:'Oswald';font-size:32px;color:var(--gold);line-height:1;}
+.kpi-unit{font-size:14px;color:var(--gray);margin-left:3px;}
+.kpi-desc{font-size:11px;color:var(--gray);margin-top:6px;line-height:1.5;}
+.price-track{position:relative;display:flex;flex-direction:column;gap:0;}
+.price-track::before{content:'';position:absolute;left:100px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),var(--gold),var(--light-blue));}
+.price-row{display:flex;align-items:center;padding:5px 0;}
+.price-date{width:100px;text-align:right;padding-right:18px;font-size:11px;color:var(--gray);flex-shrink:0;}
+.price-dot-wrap{width:18px;flex-shrink:0;display:flex;justify-content:center;}
+.p-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--navy);}
+.price-content{margin-left:8px;display:flex;align-items:center;gap:8px;}
+.price-bar{height:22px;border-radius:0 4px 4px 0;display:flex;align-items:center;padding:0 10px;}
+.p-bar-val{font-family:'Oswald';font-size:14px;font-weight:700;white-space:nowrap;}
+.price-note{font-size:10px;color:var(--gray);}
+.impact-table{width:100%;border-collapse:separate;border-spacing:0 5px;}
+.impact-table th{font-size:10px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;padding-bottom:6px;text-align:left;}
+.impact-table td{padding:9px 12px;font-size:12px;}
+.impact-table tr td:first-child{border-radius:6px 0 0 6px;background:rgba(26,58,26,0.5);font-weight:700;color:var(--light-blue);}
+.impact-table tr td:last-child{border-radius:0 6px 6px 0;background:rgba(26,58,26,0.25);color:#ccd8cc;}
+
+/* ── THINKTANK ── */
+.tt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
+.tt-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;border-left:3px solid var(--mid-blue);}
+.tt-org{font-family:'Oswald';font-size:12px;letter-spacing:2px;color:var(--gold);margin-bottom:8px;}
+.tt-quote{font-size:12px;line-height:1.8;color:#cdd8cd;font-style:italic;margin-bottom:8px;}
+.tt-date{font-size:10px;color:var(--gray);}
+
+/* ── MAP ── */
+.map-wrap{background:rgba(26,58,26,0.2);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.map-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:16px;}
+.map-leg-item{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:8px 12px;}
+.m-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+
+/* ── UTILITY ── */
+.section-h{font-family:'Noto Serif JP';font-size:22px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.section-num{width:32px;height:32px;border-radius:50%;background:var(--mid-blue);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-size:15px;flex-shrink:0;}
+.section-sub{color:var(--gray);font-size:13px;margin-bottom:28px;margin-left:42px;}
+.alert-box{background:rgba(58,138,58,0.08);border:1px solid rgba(58,138,58,0.4);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:#aee8ae;line-height:1.7;}
+.warn-box{background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.4);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:#e8b4ae;line-height:1.7;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.grid-2{grid-template-columns:1fr;}.tl-date{width:70px;font-size:10px;}.timeline::before{left:70px;}.tl-dot{left:64px;}.tl-content{margin-left:14px;}.weapon-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="./index.html">🇺🇦 ウクライナ戦争レポート</a>
+  <button class="nav-btn active" onclick="show('script')">📄 解説</button>
+  <button class="nav-btn" onclick="show('timeline')">📅 タイムライン</button>
+  <button class="nav-btn" onclick="show('map')">🗺 戦況マップ</button>
+  <button class="nav-btn" onclick="show('weapons')">🔫 兵器解説</button>
+  <button class="nav-btn" onclick="show('economy')">📈 経済影響</button>
+  <button class="nav-btn" onclick="show('thinktank')">🏛 シンクタンク</button>
+  <button class="nav-btn" onclick="window.location.href='archive/index.html'">📚 過去のアーカイブ</button>
+  <div id="nav-time" style="margin-left:auto;font-size:11px;color:var(--gray);white-space:nowrap;padding-right:4px;"></div>
+</nav>
+
+<!-- ════ 台本・解説 ════ -->
+<section id="script" class="active">
+<div class="hero">
+  <div class="hero-eyebrow">Deep Research Report｜2026年4月</div>
+  <h1 class="hero-title">侵攻から<span>4年</span>——ウクライナ戦争の全貌<br>消耗戦・ドローン革命・停戦交渉の行方</h1>
+  <p class="hero-sub">防衛研究所・JIIA・RIETI・ISW など複数のシンクタンク分析を統合し、戦況・兵器・経済の3視点から多角的に評価</p>
+  <div class="badges">
+    <span class="badge badge-red">⚠ 戦闘継続中</span>
+    <span class="badge badge-blue">📊 シンクタンク多角評価</span>
+    <span class="badge badge-gold">🇯🇵 日本への影響分析</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="script-section">
+<div class="script-h1">📋 全体構成</div>
+<table class="info-table">
+  <thead><tr><th>セクション</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>全体概要</td><td>タイトルカード・概要説明</td></tr>
+    <tr><td>第1部：背景編</td><td>なぜロシアはウクライナに侵攻したのか？</td></tr>
+    <tr><td>第2部：戦況編</td><td>4年間の戦争と現在の前線（地図解説付き）</td></tr>
+    <tr><td>第3部：兵器編</td><td>ドローン革命と最新鋭兵器を徹底解説</td></tr>
+    <tr><td>第4部：経済編</td><td>日本への影響：エネルギー・穀物・制裁</td></tr>
+    <tr><td>クロージング</td><td>停戦交渉の行方と今後の展望</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="script-section">
+<div class="script-h1">🗒 全体概要</div>
+<p class="script-p">みなさん、こんにちは。今日は、2022年2月から始まったロシアによるウクライナへの全面侵攻——その戦争が4年目を迎えた今、何が起きているのかをレポートします。</p>
+<p class="script-p">戦争は今もウクライナ東部を中心に続いています。しかし今、新たな局面を迎えています。トランプ大統領が停戦仲介に乗り出し、20項目の停戦案をめぐる交渉が続いていますが、ロシアとウクライナの主張は依然として大きくかみ合っていません。</p>
+<p class="script-p">この戦争が世界に与えたインパクトは計り知れません。特に注目すべきは「ドローン革命」です。15万円の市販ドローンが10億円の戦車を無力化する——そんな時代が現実になったのがこの戦争です。</p>
+<p class="script-p">日本にとってもこの戦争は他人事ではありません。エネルギー価格の上昇、食料価格の上昇、そして日本の安全保障への教訓——今日はそういった視点からも解説します。</p>
+</div>
+
+<div class="script-section">
+<div class="script-h1">第1部：背景編</div>
+
+<div class="script-h2">① なぜロシアはウクライナに侵攻したのか</div>
+<p class="script-p">2022年2月24日、ロシアはウクライナへの「特別軍事作戦」を宣言し全面侵攻を開始しました。プーチン大統領がそこで示した理由は主に3つです。①NATO（北大西洋条約機構）の東方拡大阻止、②ウクライナの「非軍事化・非ナチ化」、③ロシア系住民の保護。</p>
+<p class="script-p">ただし、国際社会の大多数はこれを国際法違反の侵略と認定しています。国連総会では圧倒的多数がロシア非難決議を採択しました。</p>
+
+<div class="script-h2">② 2022年〜2024年：攻防の推移</div>
+<p class="script-p">侵攻当初、ロシアはキーウ（首都）への電撃作戦を試みましたが、ウクライナ軍の抵抗で失敗。ロシアは戦略を転換し東部・南部への集中攻撃へ移りました。2022年9月にはウクライナが大規模反攻作戦を実施し、ハルキウ州などを奪還。しかし2023年以降、戦線は膠着し「消耗戦」の様相を呈しています。</p>
+
+<div class="script-h2">③ 2025〜2026年：停戦交渉と膠着する前線</div>
+<p class="script-p">2025年1月にトランプ大統領が就任し、停戦仲介を本格化。20項目の停戦案が提示されました。ウクライナは「交渉には前向きだが降伏は拒否」、ロシアは「占領地の帰属とNATO加盟放棄は絶対条件」の立場を崩していません。防衛研究所（NIDS）の分析では、2026年1〜3月もロシア軍は多正面で前進を試みつつ反撃を受けるという構図が続いています。</p>
+<div class="note-box">📌 グラフィック：タイムライン「主要転換点」を表示</div>
+</div>
+
+<div class="script-section">
+<div class="script-h1">第2部：戦況編</div>
+
+<div class="script-h2">① 現在の前線状況（2026年4月）</div>
+<p class="script-p">現在の戦線はウクライナ東部・南部に集中しています。ドネツク州ではロシアが残る約22%の制圧を目指し圧力を継続。しかしISW（戦争研究所）の評価では、ドネツク州を完全に制圧するにはなお1年半以上かかるとされています。</p>
+<p class="script-p">注目されるのはロシアの「ドローン攻撃」の激化です。防衛研究所の分析によれば、2026年1〜3月にはロシアが毎月4000〜6000回のドローン攻撃を実施。ウクライナは毎月500〜600回の被弾を受けています。</p>
+
+<div class="script-h2">② ウクライナの反撃——「蜘蛛の巣作戦」と深部攻撃</div>
+<p class="script-p">ウクライナも黙ってはいません。2025年6月には「蜘蛛の巣作戦」を実施。AIを搭載した自律ドローンをトラックに隠してロシア国内に潜入させ、4か所の軍用飛行場を攻撃。Tu-95戦略爆撃機を含む多数の航空機に損害を与えました。</p>
+<p class="script-p">また2026年2〜3月には、国産巡航ミサイル「FP-5フラミンゴ」でヴォトキンスクの軍需工場を攻撃。ドローンでサンクトペテルブルク近郊の製油所も攻撃しました。ロシアの石油輸出を減少させ、経済的ダメージを与えることが狙いです。</p>
+<div class="note-box">📌 地図：「蜘蛛の巣作戦」の攻撃ルートと標的を表示</div>
+</div>
+
+<div class="script-section">
+<div class="script-h1">第3部：兵器編</div>
+<div class="alert-box">🔫 詳細な兵器解説は <strong>「兵器解説」タブ</strong> をご覧ください。</div>
+<p class="script-p">この戦争が「ドローン革命」と呼ばれる理由があります。10億円の戦車が15万円のFPVドローンで無力化され、600億円の戦艦が3700万円の無人水上艇（USV）で脅かされる——かつての「大きく・強く・高精度な兵器が勝つ」という軍事の常識が根底から覆されています。</p>
+<p class="script-p">ウクライナは月に1万機ものドローンを消耗しながら戦っています。ロシアはイランから供与されたシャヘド136（カミカゼドローン）を大量投入し、ウクライナのエネルギーインフラを狙い続けています。一方ウクライナは光ファイバー有線制御ドローン、AIによる自律攻撃ドローンで対抗。双方がリアルタイムで技術を進化させる「イノベーション消耗戦」が続いています。</p>
+</div>
+
+<div class="script-section">
+<div class="script-h1">第4部：経済編</div>
+<div class="alert-box">📈 詳細なグラフは <strong>「経済影響」タブ</strong> をご覧ください。</div>
+<p class="script-p">この戦争が日本に与えた経済的影響は3つに整理できます。①エネルギー価格——ロシアは世界最大級の天然ガス・石油産出国。制裁と供給不安でLNG価格が上昇し、日本の電気代にも影響が出ました。②食料価格——ウクライナとロシアは世界の小麦輸出の約28%を担っています。戦争による供給不安が世界の食料価格を押し上げました。③日本の支援コスト——日本は2026年4月時点でウクライナに対し総額1兆円以上の支援を実施しており、これが財政にも影響を与えています。</p>
+</div>
+
+<div class="script-section">
+<div class="script-h1">🎬 クロージング</div>
+<p class="script-p">今日はウクライナ戦争の現状を3つの視点からお伝えしました。①4年間にわたる消耗戦と現在の膠着した前線、②ドローン革命が変えた現代戦の姿、③エネルギー・食料・支援コストという形での日本への影響です。</p>
+<p class="script-p">停戦交渉は続いていますが、ロシアの「占領地帰属」とウクライナの「降伏拒否」という根本的な対立が解消されない限り、戦争は2027年以降も続く可能性があります（日本国際問題研究所の分析）。</p>
+<p class="script-p">この戦争は日本の安全保障にも重大な教訓をもたらしています。ドローンの重要性、民間技術の軍事転用、電力インフラの防護——これらは決して遠い国の話ではありません。今日のレポートが理解の一助になれば幸いです。</p>
+</div>
+</div>
+</section>
+
+<!-- ════ TIMELINE ════ -->
+<section id="timeline">
+<div class="container">
+<div class="section-h"><span class="section-num">📅</span>主要タイムライン 2022–2026</div>
+<div class="section-sub">2022年2月の全面侵攻から2026年4月の現在まで、主要イベントを時系列で追う</div>
+<div class="timeline">
+
+  <div class="tl-item"><div class="tl-date">2022年<br>2月24日</div><div class="tl-dot major"></div>
+  <div class="tl-content major"><div class="tl-ev">💥 ロシア、ウクライナへ全面侵攻開始</div>
+  <div class="tl-desc">「特別軍事作戦」を宣言。キーウへの電撃作戦を試みるも、ウクライナ軍が抵抗。国連総会が圧倒的多数でロシア非難決議を採択。G7・EU・日本が経済制裁を発動。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2022年<br>3〜4月</div><div class="tl-dot"></div>
+  <div class="tl-content"><div class="tl-ev">🚫 ロシア軍、キーウ攻略断念</div>
+  <div class="tl-desc">ウクライナ軍の激しい抵抗でキーウ周辺から撤退。ブチャでの民間人虐殺が発覚し国際社会に衝撃。ロシアは東部・南部へ戦略を転換。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2022年<br>9月</div><div class="tl-dot major"></div>
+  <div class="tl-content major"><div class="tl-ev">⚡ ウクライナ軍、大規模反攻——ハルキウ州奪還</div>
+  <div class="tl-desc">ウクライナが電撃的な反攻でハルキウ州の大部分を奪還。欧米供与のHIMARS多連装ロケットシステムが奏功。ロシアは部分的動員令を発令（30万人）。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2022年<br>10〜12月</div><div class="tl-dot red-dot"></div>
+  <div class="tl-content danger"><div class="tl-ev">⚡ ロシア、エネルギーインフラへの大規模攻撃開始</div>
+  <div class="tl-desc">ウクライナの発電所・変電所をミサイル・ドローンで集中攻撃。電力供給が激減し、冬のウクライナで停電が常態化。イラン製シャヘド136が大量投入される。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2023年<br>6〜9月</div><div class="tl-dot"></div>
+  <div class="tl-content"><div class="tl-ev">🪖 ウクライナ軍、南部反攻——成果限定的</div>
+  <div class="tl-desc">欧米支援の戦車・歩兵戦闘車を投入した反攻作戦を実施。ロシアの地雷原と防衛線で進撃が阻まれ、領土奪還は限定的。消耗戦の様相が鮮明に。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2024年</div><div class="tl-dot"></div>
+  <div class="tl-content"><div class="tl-ev">🌐 消耗戦の長期化・北朝鮮兵の参戦</div>
+  <div class="tl-desc">ロシアは北朝鮮から弾薬・砲弾を大量輸入。さらに北朝鮮兵士推定1万〜1万2000人がロシア側で参戦。ウクライナはロシア領クルスク州への越境侵攻を実施。欧米は長距離ミサイルのウクライナへの供与を決定。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2025年<br>1月</div><div class="tl-dot blue-dot"></div>
+  <div class="tl-content peace"><div class="tl-ev">🤝 トランプ大統領就任——停戦仲介本格化</div>
+  <div class="tl-desc">「就任後24時間以内に停戦」と公約していたトランプ大統領が就任。ロシア・ウクライナ双方との個別協議を開始。ゼレンスキー大統領は停戦協議に応じる姿勢を示しつつNATO加盟を事実上断念。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2025年<br>4月</div><div class="tl-dot blue-dot"></div>
+  <div class="tl-content peace"><div class="tl-ev">🕊 イースター停戦（30時間）——その後再開</div>
+  <div class="tl-desc">プーチン大統領がイースターに合わせ30時間の停戦を提案。キーウでは空襲警報が発令されず。しかし停戦後すぐに戦闘再開。トランプは「就任100日での停戦」を達成できず。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2025年<br>6月</div><div class="tl-dot major"></div>
+  <div class="tl-content major"><div class="tl-ev">🤖 「蜘蛛の巣作戦」——ドローン戦争の新時代</div>
+  <div class="tl-desc">ウクライナのAI搭載ドローンがロシア空軍基地4か所を奇襲。Tu-95戦略爆撃機含む多数の航空機に損害。小型ドローンが戦略核戦力を脅かす前例のない事態に。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2025年<br>11月</div><div class="tl-dot blue-dot"></div>
+  <div class="tl-content peace"><div class="tl-ev">📄 トランプ政権、20項目停戦案を提示</div>
+  <div class="tl-desc">当初28項目を20項目に整理した停戦案を提示。占領地帰属・NATO加盟断念などウクライナには容認困難な内容も含む。ロシアは占領地帰属を絶対条件とし交渉は難航。</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2026年<br>1〜3月</div><div class="tl-dot"></div>
+  <div class="tl-content"><div class="tl-ev">⚔ 消耗戦継続——ドローン攻撃が月4000〜6000回</div>
+  <div class="tl-desc">ロシア軍は多正面で前進を試みるも反撃を受け一進一退。ドローン攻撃が月4000〜6000回に達する。ウクライナは国産巡航ミサイル「FP-5フラミンゴ」でロシア軍需工場を攻撃。（防衛研究所NIDSコメンタリー第430号）</div></div></div>
+
+  <div class="tl-item"><div class="tl-date">2026年<br>4月22日</div><div class="tl-dot major"></div>
+  <div class="tl-content major"><div class="tl-ev">📍 現在——停戦交渉は膠着、戦闘は継続</div>
+  <div class="tl-desc">ロシア・ウクライナとも停戦合意には程遠い状況。ドネツク州完全制圧にはなお1年半以上かかるとの分析（ISW）。2027年以降も戦争継続の可能性が高い。</div></div></div>
+
+</div>
+</div>
+</section>
+
+<!-- ════ MAP ════ -->
+<section id="map">
+<div class="container">
+<div class="section-h"><span class="section-num">🗺</span>戦況マップ：前線と主要事象</div>
+<div class="section-sub">ウクライナ東部・南部を中心とした前線と各国の支援状況</div>
+<div class="kpi-grid" style="margin-bottom:20px;">
+  <div class="kpi-card"><div class="kpi-num">4<span class="kpi-unit">年</span></div><div class="kpi-desc">戦争継続期間（2022年2月〜現在）</div></div>
+  <div class="kpi-card"><div class="kpi-num">20<span class="kpi-unit">%</span></div><div class="kpi-desc">ロシアが占領するウクライナ領土の割合（推計）</div></div>
+  <div class="kpi-card"><div class="kpi-num">2962<span class="kpi-unit">億ドル</span></div><div class="kpi-desc">世界からのウクライナ支援総額（2025年4月時点、キール研究所）</div></div>
+</div>
+<div class="map-wrap" style="padding:16px;">
+  <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" style="max-height:420px;width:100%;">
+    <defs>
+      <marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <rect width="800" height="500" fill="#0d1a0d"/>
+
+    <!-- 欧州・周辺国 背景 -->
+    <polygon points="30,30 200,30 200,200 100,250 30,200" fill="#1a2a1a" stroke="#3a6a3a" stroke-width="1"/>
+    <text x="115" y="140" fill="#6abf6a" font-size="12" text-anchor="middle" font-family="Noto Sans JP">ポーランド</text>
+    <text x="115" y="155" fill="#4a9f4a" font-size="9" text-anchor="middle" font-family="Noto Sans JP">🇵🇱 NATO加盟</text>
+
+    <!-- ベラルーシ -->
+    <polygon points="200,30 380,30 380,130 300,130 200,100" fill="#1a1a2a" stroke="#5a5a8a" stroke-width="1"/>
+    <text x="285" y="85" fill="#8a8abf" font-size="11" text-anchor="middle" font-family="Noto Sans JP">ベラルーシ</text>
+    <text x="285" y="100" fill="#6a6a9f" font-size="9" text-anchor="middle" font-family="Noto Sans JP">（ロシア同盟）</text>
+
+    <!-- ロシア -->
+    <polygon points="380,30 760,30 760,250 600,300 450,280 380,200 380,130" fill="#2a1a1a" stroke="#8a3a3a" stroke-width="1.5"/>
+    <text x="580" y="150" fill="#cf6a6a" font-size="14" text-anchor="middle" font-weight="bold" font-family="Noto Sans JP">🇷🇺 ロシア</text>
+
+    <!-- ウクライナ本体 -->
+    <polygon points="100,250 200,200 300,130 380,130 380,200 450,280 420,400 280,430 150,400 100,350" fill="#1a3a1a" stroke="#3a8a3a" stroke-width="2"/>
+    <text x="260" y="290" fill="#6abf6a" font-size="14" text-anchor="middle" font-weight="bold" font-family="Noto Sans JP">🇺🇦 ウクライナ</text>
+
+    <!-- ロシア占領地域（東部・南部） -->
+    <polygon points="420,280 480,260 550,270 580,320 550,400 450,410 400,380 400,310" fill="rgba(192,57,43,0.3)" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="480" y="340" fill="#e87c7c" font-size="10" text-anchor="middle" font-family="Noto Sans JP">ロシア占領地域</text>
+    <text x="480" y="354" fill="#e87c7c" font-size="9" text-anchor="middle" font-family="Noto Sans JP">（ドネツク・ザポリージャ等）</text>
+
+    <!-- クリミア半島 -->
+    <ellipse cx="460" cy="430" rx="60" ry="25" fill="rgba(192,57,43,0.4)" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="460" y="434" fill="#e87c7c" font-size="9" text-anchor="middle" font-family="Noto Sans JP">クリミア（2014年〜ロシア支配）</text>
+
+    <!-- 前線ライン -->
+    <path d="M400,280 M410,285 L430,270 L450,260 L470,255 L500,260 L530,280 L555,310 L560,350 L545,390 L500,405 L450,408 L410,390 L400,360 L400,310 Z" fill="none" stroke="#ffd700" stroke-width="3" stroke-dasharray="8,4"/>
+    <text x="315" y="248" fill="#ffd700" font-size="9" font-family="Noto Sans JP">← 現在の前線（膠着）</text>
+
+    <!-- キーウ -->
+    <circle cx="270" cy="195" r="8" fill="#3a8a3a" stroke="#6abf6a" stroke-width="2"/>
+    <text x="270" y="182" fill="#6abf6a" font-size="10" text-anchor="middle" font-weight="bold" font-family="Noto Sans JP">キーウ（首都）</text>
+
+    <!-- ハルキウ -->
+    <circle cx="395" cy="215" r="5" fill="#3a8a3a" stroke="#6abf6a" stroke-width="1.5"/>
+    <text x="395" y="204" fill="#6abf6a" font-size="9" text-anchor="middle" font-family="Noto Sans JP">ハルキウ</text>
+
+    <!-- マリウポリ -->
+    <circle cx="490" cy="355" r="4" fill="#c0392b" stroke="#e87c7c" stroke-width="1"/>
+    <text x="528" y="352" fill="#e87c7c" font-size="8" font-family="Noto Sans JP">マリウポリ</text>
+
+    <!-- 蜘蛛の巣作戦の矢印 -->
+    <path d="M350,250 Q420,140 580,100" fill="none" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#ma)"/>
+    <text x="455" y="142" fill="#ffd700" font-size="8" text-anchor="middle" font-family="Noto Sans JP">🤖 蜘蛛の巣作戦（2025.6）</text>
+
+    <!-- ロシアのドローン攻撃 -->
+    <path d="M550,200 Q430,220 320,230" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#ma)"/>
+    <text x="440" y="216" fill="#e74c3c" font-size="8" text-anchor="middle" font-family="Noto Sans JP">シャヘド大量攻撃</text>
+
+    <!-- 欧米支援 -->
+    <path d="M100,180 Q165,220 240,270" fill="none" stroke="#3a7fbf" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#ma)"/>
+    <text x="95" y="168" fill="#3a7fbf" font-size="8" font-family="Noto Sans JP">欧米支援</text>
+
+    <!-- 黒海 -->
+    <text x="380" y="465" fill="#3a6fa8" font-size="10" text-anchor="middle" font-style="italic" font-family="Noto Sans JP">黒海</text>
+
+    <!-- 凡例 -->
+    <rect x="605" y="340" width="180" height="130" rx="8" fill="rgba(13,26,13,0.95)" stroke="#3a8a3a" stroke-width="1"/>
+    <text x="618" y="360" fill="#c9a84c" font-size="10" font-weight="bold" font-family="Noto Sans JP">凡例</text>
+    <rect x="618" y="368" width="12" height="8" rx="2" fill="rgba(192,57,43,0.4)" stroke="#c0392b" stroke-width="1"/>
+    <text x="636" y="376" fill="#ccc" font-size="9" font-family="Noto Sans JP">ロシア占領地域</text>
+    <line x1="618" y1="390" x2="632" y2="390" stroke="#ffd700" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="636" y="394" fill="#ccc" font-size="9" font-family="Noto Sans JP">現在の前線</text>
+    <line x1="618" y1="406" x2="632" y2="406" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="636" y="410" fill="#ccc" font-size="9" font-family="Noto Sans JP">蜘蛛の巣作戦</text>
+    <line x1="618" y1="422" x2="632" y2="422" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="636" y="426" fill="#ccc" font-size="9" font-family="Noto Sans JP">ロシアドローン攻撃</text>
+    <line x1="618" y1="438" x2="632" y2="438" stroke="#3a7fbf" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <text x="636" y="442" fill="#ccc" font-size="9" font-family="Noto Sans JP">欧米支援ルート</text>
+    <text x="618" y="462" fill="#888" font-size="8" font-family="Noto Sans JP">※模式図（縮尺省略）</text>
+  </svg>
+</div>
+<div class="map-legend">
+  <div class="map-leg-item"><div class="m-dot" style="background:#6abf6a;"></div><div><div style="font-size:12px;font-weight:700;">🇺🇦 ウクライナ</div><div style="font-size:10px;color:var(--gray);">欧米支援で抗戦継続。ドローン革命を主導</div></div></div>
+  <div class="map-leg-item"><div class="m-dot" style="background:#cf6a6a;"></div><div><div style="font-size:12px;font-weight:700;">🇷🇺 ロシア</div><div style="font-size:10px;color:var(--gray);">東部・南部を占領。北朝鮮兵・弾薬で補充</div></div></div>
+  <div class="map-leg-item"><div class="m-dot" style="background:#ffd700;"></div><div><div style="font-size:12px;font-weight:700;">前線ライン</div><div style="font-size:10px;color:var(--gray);">東部を中心に膠着。一進一退が続く</div></div></div>
+  <div class="map-leg-item"><div class="m-dot" style="background:#3a7fbf;"></div><div><div style="font-size:12px;font-weight:700;">🇺🇸🇪🇺 欧米支援</div><div style="font-size:10px;color:var(--gray);">総額2962億ドル（うち米国695億ドル）</div></div></div>
+  <div class="map-leg-item"><div class="m-dot" style="background:#8a8abf;"></div><div><div style="font-size:12px;font-weight:700;">🇧🇾 ベラルーシ</div><div style="font-size:10px;color:var(--gray);">ロシアの同盟国。侵攻拠点として提供</div></div></div>
+  <div class="map-leg-item"><div class="m-dot" style="background:#c9a84c;"></div><div><div style="font-size:12px;font-weight:700;">🇰🇵 北朝鮮</div><div style="font-size:10px;color:var(--gray);">兵士1万人以上・弾薬をロシアに供与</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- ════ WEAPONS ════ -->
+<section id="weapons">
+<div class="container">
+<div class="section-h"><span class="section-num">🔫</span>兵器解説：ドローン革命が変えた現代戦</div>
+<div class="section-sub">この戦争が「21世紀の戦争の教科書」と呼ばれる理由——主要兵器を解説</div>
+<div class="alert-box">💡 核心：15万円のFPVドローンが10億円の戦車を無力化。「大きく・強く・高精度」が勝つという軍事の常識が根底から覆された。</div>
+<div class="weapon-grid">
+
+<div class="weapon-card">
+  <div class="weapon-head"><div class="weapon-icon" style="background:rgba(58,138,58,0.2);">🚁</div><div>
+    <div class="weapon-name">FPVドローン（自爆型）</div>
+    <div class="weapon-type">低コスト攻撃ドローン｜ウクライナ・ロシア双方</div>
+  </div></div>
+  <span class="weapon-tag" style="background:rgba(58,138,58,0.2);color:#6abf6a;">この戦争の主役</span>
+  <div class="spec-row"><span class="spec-label">コスト</span><span class="spec-val">1機あたり約15万〜50万円（市販部品で製造可）</span></div>
+  <div class="spec-row"><span class="spec-label">対比</span><span class="spec-val">10億円の戦車を15万円のドローンが無力化</span></div>
+  <div class="spec-row"><span class="spec-label">月間消耗</span><span class="spec-val">ウクライナが月約1万機を消耗しながら戦闘</span></div>
+  <div class="spec-row"><span class="spec-label">制御方式</span><span class="spec-val">無線（電波妨害されると無効）→光ファイバー有線制御へ進化</span></div>
+  <div class="spec-row"><span class="spec-label">最新進化</span><span class="spec-val">AI搭載による自律攻撃（人が介在不要）</span></div>
+  <div class="spec-row"><span class="spec-label">日本への教訓</span><span class="spec-val">2026年度防衛予算にドローン調達費1001億円を計上</span></div>
+</div>
+
+<div class="weapon-card">
+  <div class="weapon-head"><div class="weapon-icon" style="background:rgba(192,57,43,0.2);">💣</div><div>
+    <div class="weapon-name">シャヘド136（イラン→ロシア）</div>
+    <div class="weapon-type">カミカゼドローン｜イラン製・ロシアが大量使用</div>
+  </div></div>
+  <span class="weapon-tag" style="background:rgba(192,57,43,0.2);color:#e74c3c;">エネルギー攻撃の主役</span>
+  <div class="spec-row"><span class="spec-label">コスト</span><span class="spec-val">1機あたり約2〜5万ドル（比較的安価）</span></div>
+  <div class="spec-row"><span class="spec-label">航続距離</span><span class="spec-val">約2000km（ウクライナ全土をカバー）</span></div>
+  <div class="spec-row"><span class="spec-label">用途</span><span class="spec-val">発電所・変電所などエネルギーインフラへの飽和攻撃</span></div>
+  <div class="spec-row"><span class="spec-label">迎撃コスト</span><span class="spec-val">迎撃ミサイル（数十万〜数百万ドル）vs ドローン（数万ドル）の非対称</span></div>
+  <div class="spec-row"><span class="spec-label">ロシア側改良</span><span class="spec-val">イランから技術供与を受けロシア国内でも生産開始</span></div>
+</div>
+
+<div class="weapon-card">
+  <div class="weapon-head"><div class="weapon-icon" style="background:rgba(58,127,191,0.2);">🛩</div><div>
+    <div class="weapon-name">バイラクタルTB2</div>
+    <div class="weapon-type">軍事ドローン｜トルコ製・ウクライナが使用</div>
+  </div></div>
+  <span class="weapon-tag" style="background:rgba(58,127,191,0.2);color:#5b9bd5;">2022年の英雄</span>
+  <div class="spec-row"><span class="spec-label">翼幅</span><span class="spec-val">約12m（中型軍事ドローン）</span></div>
+  <div class="spec-row"><span class="spec-label">航続距離</span><span class="spec-val">約150km（滞空時間27時間以上）</span></div>
+  <div class="spec-row"><span class="spec-label">搭載兵器</span><span class="spec-val">レーザー誘導ロケット弾・ミサイル</span></div>
+  <div class="spec-row"><span class="spec-label">活躍</span><span class="spec-val">侵攻初期にロシアの戦車・補給車両を多数撃破</span></div>
+  <div class="spec-row"><span class="spec-label">限界</span><span class="spec-val">ロシアの防空システム強化で現在は単独運用困難</span></div>
+  <div class="spec-row"><span class="spec-label">愛国歌</span><span class="spec-val">「バイラクタル」という歌がウクライナで大流行</span></div>
+</div>
+
+<div class="weapon-card">
+  <div class="weapon-head"><div class="weapon-icon" style="background:rgba(201,168,76,0.2);">🚀</div><div>
+    <div class="weapon-name">HIMARS（ハイマース）</div>
+    <div class="weapon-type">多連装ロケットシステム｜米国供与</div>
+  </div></div>
+  <span class="weapon-tag" style="background:rgba(201,168,76,0.2);color:#c9a84c;">反攻の立役者</span>
+  <div class="spec-row"><span class="spec-label">射程</span><span class="spec-val">約80km（GMLRS誘導ロケット弾）</span></div>
+  <div class="spec-row"><span class="spec-label">精度</span><span class="spec-val">GPS誘導で誤差数メートル以内</span></div>
+  <div class="spec-row"><span class="spec-label">機動性</span><span class="spec-val">射撃後すぐに移動可能（反撃を回避）</span></div>
+  <div class="spec-row"><span class="spec-label">実績</span><span class="spec-val">ロシアの弾薬庫・補給拠点を多数撃破</span></div>
+  <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">2022年9月のハルキウ州奪還で決定的役割</span></div>
+  <div class="spec-row"><span class="spec-label">ロシアの対応</span><span class="spec-val">HIMARSを最優先目標として執拗に追跡・攻撃</span></div>
+</div>
+
+<div class="weapon-card">
+  <div class="weapon-head"><div class="weapon-icon" style="background:rgba(58,138,58,0.2);">🤖</div><div>
+    <div class="weapon-name">AI自律ドローン「蜘蛛の巣作戦」</div>
+    <div class="weapon-type">AI搭載攻撃ドローン｜ウクライナ国産</div>
+  </div></div>
+  <span class="weapon-tag" style="background:rgba(58,138,58,0.15);color:#7ec87e;">戦争の未来形</span>
+  <div class="spec-row"><span class="spec-label">作戦</span><span class="spec-val">2025年6月、ロシア空軍基地4か所を同時奇襲</span></div>
+  <div class="spec-row"><span class="spec-label">手法</span><span class="spec-val">トラックに隠してロシア国内に潜入→発射</span></div>
+  <div class="spec-row"><span class="spec-label">AI機能</span><span class="spec-val">標的（航空機）を自律識別して攻撃</span></div>
+  <div class="spec-row"><span class="spec-label">戦果</span><span class="spec-val">Tu-95戦略爆撃機含む多数に損害。もはや生産されていない機体</span></div>
+  <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">核戦力の柱「空爆能力」をドローンが脅かした歴史的事件</span></div>
+</div>
+
+<div class="weapon-card">
+  <div class="weapon-head"><div class="weapon-icon" style="background:rgba(58,127,191,0.2);">🛡</div><div>
+    <div class="weapon-name">パトリオット防空システム</div>
+    <div class="weapon-type">地対空ミサイルシステム｜米国・西欧供与</div>
+  </div></div>
+  <span class="weapon-tag" style="background:rgba(58,127,191,0.15);color:#5b9bd5;">ウクライナの盾</span>
+  <div class="spec-row"><span class="spec-label">役割</span><span class="spec-val">ロシアの弾道ミサイル・巡航ミサイルを迎撃</span></div>
+  <div class="spec-row"><span class="spec-label">コスト問題</span><span class="spec-val">迎撃ミサイル1発：数百万ドル vs シャヘド：数万ドル</span></div>
+  <div class="spec-row"><span class="spec-label">不足</span><span class="spec-val">ウクライナが米国にライセンス生産を提案（需要急増）</span></div>
+  <div class="spec-row"><span class="spec-label">代替案</span><span class="spec-val">ウクライナが独自の弾道ミサイル迎撃システム開発中</span></div>
+  <div class="spec-row"><span class="spec-label">日本への影響</span><span class="spec-val">日本もパトリオット弾薬をウクライナ支援に活用検討</span></div>
+</div>
+
+</div>
+<div class="warn-box">⚠ <strong>ドローン拡散のリスク：</strong>ウクライナ戦争で実証されたドローン技術はすでに45か国が軍で採用（5年で2倍超）。ロシアは北朝鮮にドローン生産技術を供与している可能性があり、日本に到達しうる攻撃能力を持つドローンが拡散するリスクが指摘されている。（日本経済新聞）</div>
+</div>
+</section>
+
+<!-- ════ ECONOMY ════ -->
+<section id="economy">
+<div class="container">
+<div class="section-h"><span class="section-num">📈</span>経済影響分析：日本・世界への影響</div>
+<div class="section-sub">戦争が日本のエネルギー・食料・安全保障コストに与えた影響</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card"><div class="kpi-num">28<span class="kpi-unit">%</span></div><div class="kpi-desc">ウクライナ＋ロシアの世界小麦輸出シェア（戦前）</div></div>
+  <div class="kpi-card"><div class="kpi-num">1兆<span class="kpi-unit">円</span></div><div class="kpi-desc">日本のウクライナ支援総額（2026年4月時点）</div></div>
+  <div class="kpi-card"><div class="kpi-num">24<span class="kpi-unit">回</span></div><div class="kpi-desc">日本が実施した対ロシア制裁措置（2022年2月〜2026年2月）</div></div>
+  <div class="kpi-card"><div class="kpi-num">2773<span class="kpi-unit">億円</span></div><div class="kpi-desc">2026年度日本防衛予算のドローン関連費用</div></div>
+</div>
+
+<div class="grid-2" style="margin:20px 0;">
+<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;">
+  <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;margin-bottom:16px;">🌾 食料価格への影響</div>
+  <div class="price-track">
+    <div class="price-row"><div class="price-date">侵攻前</div><div class="price-dot-wrap"><div class="p-dot" style="background:#6abf6a;"></div></div><div class="price-content"><div class="price-bar" style="width:80px;background:rgba(58,138,58,0.3);"><span class="p-bar-val" style="color:#6abf6a;">基準値</span></div><span class="price-note">平常時</span></div></div>
+    <div class="price-row"><div class="price-date">2022年3月</div><div class="price-dot-wrap"><div class="p-dot" style="background:#e74c3c;"></div></div><div class="price-content"><div class="price-bar" style="width:165px;background:rgba(231,76,60,0.4);"><span class="p-bar-val" style="color:#ff6b6b;">小麦+50%超🔺</span></div><span class="price-note">史上最高値</span></div></div>
+    <div class="price-row"><div class="price-date">黒海合意後</div><div class="price-dot-wrap"><div class="p-dot" style="background:#f39c12;"></div></div><div class="price-content"><div class="price-bar" style="width:120px;background:rgba(243,156,18,0.3);"><span class="p-bar-val" style="color:#f39c12;">やや落ち着く</span></div><span class="price-note">輸出合意</span></div></div>
+    <div class="price-row"><div class="price-date">2023年7月</div><div class="price-dot-wrap"><div class="p-dot" style="background:#e74c3c;"></div></div><div class="price-content"><div class="price-bar" style="width:155px;background:rgba(231,76,60,0.3);"><span class="p-bar-val" style="color:#e74c3c;">再騰🔺</span></div><span class="price-note">合意破棄</span></div></div>
+    <div class="price-row"><div class="price-date">2026年現在</div><div class="price-dot-wrap"><div class="p-dot" style="background:#e67e22;"></div></div><div class="price-content"><div class="price-bar" style="width:130px;background:rgba(230,126,34,0.3);"><span class="p-bar-val" style="color:#e67e22;">高止まり</span></div><span class="price-note">中東危機も重なる</span></div></div>
+  </div>
+</div>
+<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;">
+  <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;margin-bottom:16px;">⚡ エネルギー価格への影響</div>
+  <div class="price-track">
+    <div class="price-row"><div class="price-date">2022年前</div><div class="price-dot-wrap"><div class="p-dot" style="background:#6abf6a;"></div></div><div class="price-content"><div class="price-bar" style="width:80px;background:rgba(58,138,58,0.3);"><span class="p-bar-val" style="color:#6abf6a;">平常時</span></div></div></div>
+    <div class="price-row"><div class="price-date">2022年3月</div><div class="price-dot-wrap"><div class="p-dot" style="background:#e74c3c;"></div></div><div class="price-content"><div class="price-bar" style="width:175px;background:rgba(231,76,60,0.4);"><span class="p-bar-val" style="color:#ff6b6b;">LNG価格急騰🔺</span></div><span class="price-note">欧州依存が明らか</span></div></div>
+    <div class="price-row"><div class="price-date">2022〜23年</div><div class="price-dot-wrap"><div class="p-dot" style="background:#e67e22;"></div></div><div class="price-content"><div class="price-bar" style="width:150px;background:rgba(230,126,34,0.3);"><span class="p-bar-val" style="color:#e67e22;">電気代大幅上昇</span></div><span class="price-note">日本も直撃</span></div></div>
+    <div class="price-row"><div class="price-date">2026年</div><div class="price-dot-wrap"><div class="p-dot" style="background:#f39c12;"></div></div><div class="price-content"><div class="price-bar" style="width:130px;background:rgba(243,156,18,0.3);"><span class="p-bar-val" style="color:#f39c12;">中東危機も重なる</span></div><span class="price-note">二重苦</span></div></div>
+  </div>
+</div>
+</div>
+
+<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-top:4px;">
+  <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;margin-bottom:16px;">🇯🇵 日本経済・安全保障への各分野の影響</div>
+  <table class="impact-table" style="width:100%;">
+    <thead><tr><th>分野</th><th>具体的な影響</th></tr></thead>
+    <tbody>
+      <tr><td>食料価格</td><td>小麦・ひまわり油など食料価格が上昇。パン・麺類・食用油の値上がりが家計を直撃</td></tr>
+      <tr><td>エネルギー</td><td>LNG（液化天然ガス）価格が上昇。日本の電気代・ガス代に波及。中東危機と合わさり二重苦</td></tr>
+      <tr><td>対ロ制裁</td><td>日本が2022年2月〜2026年2月に24回の制裁を実施。日露貿易が大幅縮小</td></tr>
+      <tr><td>ウクライナ支援</td><td>総額1兆円以上の支援（財政・人道・復興）。日本の防衛・外交費用の増大</td></tr>
+      <tr><td>防衛費増大</td><td>ウクライナ戦争の教訓からドローン調達に2773億円（2026年度）を計上</td></tr>
+      <tr><td>産業・技術</td><td>テラドローンなど日本企業がウクライナ防衛企業に出資。ドローン共同生産も検討</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</section>
+
+<!-- ════ THINKTANK ════ -->
+<section id="thinktank">
+<div class="container">
+<div class="section-h"><span class="section-num">🏛</span>シンクタンク・専門機関の分析</div>
+<div class="section-sub">防衛研究所・JIIA・RIETI・ISW・笹川平和財団などの多角的評価</div>
+<div class="tt-grid">
+  <div class="tt-card"><div class="tt-org">防衛研究所（NIDS）第430号</div><div class="tt-quote">2026年1〜3月、ロシア軍は多正面で前進を試みウクライナの防衛に圧力を加えているが、反撃を受けて後退する局面もある。ドローン攻撃が月4000〜6000回に達し、ウクライナは毎月500〜600回の被弾を受けている。消耗戦における耐久力をめぐる競争となっている。</div><div class="tt-date">2026年4月21日｜山添博史 地域研究部長</div></div>
+  <div class="tt-card"><div class="tt-org">ISW（戦争研究所）</div><div class="tt-quote">ドネツク州の残る約22%を制圧するにはなお1年半以上を要すると分析。ロシアは「軍事力による戦争目的達成」を選択肢から外す姿勢を示さないが、前線での決定的な進展もない状況が続く。</div><div class="tt-date">2026年継続更新</div></div>
+  <div class="tt-card"><div class="tt-org">日本国際問題研究所（JIIA）戦略アウトルック2026</div><div class="tt-quote">停戦交渉は2026年も継続する公算が高い。仮に東部をロシアに譲渡する形での停戦となれば、既存の国際秩序に対して甚大な影響を及ぼし、武力による一方的な現状変更のハードルを下げる要素となりうる。</div><div class="tt-date">2025年12月31日脱稿</div></div>
+  <div class="tt-card"><div class="tt-org">新潮社フォーサイト（岩田清文元陸幕長）</div><div class="tt-quote">トランプ政権主導の和平調停には実質的な進展がなく、ロシア・ウクライナ双方とも2026年初頭の時点で武器を置く見込みは低い。ウクライナでは「交渉による終結には前向きだが、降伏と受け止められる妥協は拒否する」のが世論の大勢だ。</div><div class="tt-date">2025年12月</div></div>
+  <div class="tt-card"><div class="tt-org">RIETI（経済産業研究所）</div><div class="tt-quote">今次戦争はサイバーを含む非軍事要素が介在し、ドローンをはじめとするデュアルユース製品が本格的に戦闘に投入されるなど、軍事戦略が大きく転換した。ウクライナの防衛スタートアップ支援組織BRAVE1が示すイノベーション能力は世界の注目を集めている。</div><div class="tt-date">2026年3月</div></div>
+  <div class="tt-card"><div class="tt-org">地経学研究所（IOG）</div><div class="tt-quote">15万円のFPVドローンが10億円の戦車を無力化し、600億円の戦艦を3700万円のUSVが脅かす時代になった。AIの進化でドローンが自律的・群れで行動するようになり、人が介在する必要がどんどん減っている。日本もウクライナとの軍事ドローン共同生産を推進すべきである。</div><div class="tt-date">2026年4月</div></div>
+  <div class="tt-card"><div class="tt-org">笹川平和財団（SPF）</div><div class="tt-quote">2025年6月のウクライナによるロシア空軍基地へのドローン攻撃は、小型ドローンでも戦略的な打撃を与えられることを示す画期的な事例。海洋に囲まれた日本も、開かれた社会の脆弱性として学ぶべき点が多い。</div><div class="tt-date">2025年</div></div>
+  <div class="tt-card"><div class="tt-org">キール世界経済研究所（ドイツ）</div><div class="tt-quote">2025年4月30日時点での世界のウクライナ支援総額は2962億ドル（約42.6兆円）。軍事支援は1421億ドルで全体の約48%。米国が695億ドルと突出して多く、次いでドイツ136億ドル、英国111億ドル。</div><div class="tt-date">2025年</div></div>
+</div>
+<div style="margin-top:24px;padding:16px 20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:10px;">
+  <div style="font-family:'Oswald';font-size:12px;letter-spacing:2px;color:var(--gold);margin-bottom:8px;">📌 多角的分析のポイント</div>
+  <ul class="bullet-list">
+    <li>停戦交渉はロシアの「占領地帰属」とウクライナの「降伏拒否」という根本対立で膠着。2026年も解決の見通しなし</li>
+    <li>「ドローン革命」は現代戦の常識を覆した。安価で大量投入できる無人機が高価な有人兵器を脅かす時代へ</li>
+    <li>ロシアは北朝鮮から兵士・弾薬を「輸入」することで継戦体制を維持。中朝露の連携が深まる</li>
+    <li>この戦争の教訓は日本にも直結。ドローン防衛・電力インフラ保護・民間技術の安保活用が急務</li>
+  </ul>
+</div>
+<div style="margin-top:14px;font-size:10px;color:var(--gray);line-height:1.8;">
+※ 本資料の情報は公開情報に基づいています。2026年4月22日時点。情勢は急変する可能性があります。<br>
+※ 情報源：防衛研究所（NIDS）/ JIIA / RIETI / ISW / 笹川平和財団 / キール世界経済研究所 / 日本経済新聞 他
+</div>
+</div>
+</section>
+
+<script>
+function show(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map={'script':0,'timeline':1,'map':2,'weapons':3,'economy':4,'thinktank':5};
+  document.querySelectorAll('.nav-btn')[map[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+(function(){
+  function updateTime(){
+    const now=new Date();
+    const el=document.getElementById('nav-time');
+    if(!el)return;
+    el.textContent=now.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'})+' '+now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' 更新';
+  }
+  updateTime();
+  setInterval(updateTime,60000);
+})();
+</script>
+</body>
+</html>
