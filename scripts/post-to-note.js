@@ -1,95 +1,45 @@
-const fs = require('fs');
-const path = require('path');
-const cheerio = require('cheerio');
-const TurndownService = require('turndown');
+import fs from 'fs';
 
-// Turndown設定
-const turndownService = new TurndownService({
-  headingStyle: 'atx',
-  codeBlockStyle: 'fenced'
+const pagesUrl = process.env.PAGES_URL || 'YOUR_PAGES_URL';
+const today = new Date().toLocaleDateString('ja-JP', {
+  year: 'numeric', month: 'long', day: 'numeric'
 });
 
-// HTMLから見出しとテキストコンテンツを抽出
-function extractContent(htmlPath) {
-  const html = fs.readFileSync(htmlPath, 'utf-8');
-  const $ = cheerio.load(html);
-  
-  // 不要な要素を削除
-  $('script').remove();
-  $('style').remove();
-  $('nav').remove();
-  $('footer').remove();
-  $('.chart-container').remove(); // チャートは除外
-  $('canvas').remove();
-  
-  // メインコンテンツを抽出
-  const title = $('h1').first().text();
-  const subtitle = $('.subtitle').first().text();
-  const updateDate = $('.update-date').first().text();
-  
-  let content = `# ${title}\n\n${subtitle}\n\n${updateDate}\n\n---\n\n`;
-  
-  // 各セクションを処理
-  $('section').each((i, section) => {
-    const $section = $(section);
-    const sectionId = $section.attr('id');
-    
-    // セクションタイトル
-    const h2 = $section.find('h2').first().text();
-    content += `## ${h2}\n\n`;
-    
-    // セクション内のコンテンツ
-    $section.find('p, ul, ol, .info-box, .warning-box, h3').each((j, elem) => {
-      const $elem = $(elem);
-      const tagName = elem.name;
-      
-      if (tagName === 'h3') {
-        content += `### ${$elem.text()}\n\n`;
-      } else if ($elem.hasClass('info-box') || $elem.hasClass('warning-box')) {
-        const boxTitle = $elem.find('h4').first().text();
-        const boxContent = $elem.clone().find('h4').remove().end().text().trim();
-        content += `**${boxTitle}**\n\n${boxContent}\n\n`;
-      } else if (tagName === 'p') {
-        const text = $elem.text().trim();
-        if (text) {
-          content += `${text}\n\n`;
-        }
-      } else if (tagName === 'ul' || tagName === 'ol') {
-        $elem.find('li').each((k, li) => {
-          const liText = $(li).text().trim();
-          if (liText) {
-            content += `- ${liText}\n`;
-          }
-        });
-        content += '\n';
-      }
-    });
-    
-    content += '\n---\n\n';
-  });
-  
-  // フッター情報
-  const pagesUrl = process.env.PAGES_URL || 'https://applejoker01-afk.github.io/ukraine-war-report';
-  content += `\n\n**完全版レポートはこちら：**\n${pagesUrl}\n\n`;
-  content += `**アーカイブ（過去のレポート）：**\n${pagesUrl}/archive/\n\n`;
-  
-  return content;
-}
+const draft = `
+タイトル：
+🇺🇦【ウクライナ戦争レポート】ロシア侵攻4年目の全貌と日本への影響
 
-// メイン処理
-try {
-  const indexPath = path.join(__dirname, '..', 'index.html');
-  const outputPath = path.join(__dirname, 'note-draft.txt');
-  
-  console.log('Generating Note draft from index.html...');
-  const noteContent = extractContent(indexPath);
-  
-  // ファイルに保存
-  fs.writeFileSync(outputPath, noteContent, 'utf-8');
-  console.log(`✅ Note draft generated: ${outputPath}`);
-  console.log(`📝 Content length: ${noteContent.length} characters`);
-  
-} catch (error) {
-  console.error('❌ Error generating Note draft:', error);
-  process.exit(1);
-}
+本文：
+📌 更新日：${today}
+
+インタラクティブ解説ビジュアルはこちら👇
+${pagesUrl}
+
+（タイムライン・戦況マップ・兵器解説・経済グラフをご覧いただけます）
+
+---
+
+## 今回のレポートの主要ポイント
+
+### 1️⃣ 侵攻4年目——消耗戦と膠着する前線
+2022年2月の全面侵攻から4年が経過。ドネツク州を中心に一進一退の消耗戦が続く。防衛研究所の分析では2026年1〜3月にロシアが月4000〜6000回のドローン攻撃を実施。
+
+### 2️⃣ ドローン革命が変えた現代戦
+15万円のFPVドローンが10億円の戦車を無力化。ウクライナは月約1万機を消耗しながら戦闘を継続。2025年6月の「蜘蛛の巣作戦」ではAI搭載ドローンがロシア空軍基地を奇襲し戦略爆撃機に損害。
+
+### 3️⃣ 停戦交渉は膠着
+トランプ大統領が20項目の停戦案を提示するも、ロシアの「占領地帰属」とウクライナの「降伏拒否」で交渉は難航。2026年も解決の見通しなし。
+
+### 4️⃣ 日本への影響
+食料（小麦+50%超）・エネルギー（LNG価格高騰）・支援コスト（総額1兆円以上）が直撃。2026年度防衛予算にドローン調達費2773億円を計上。
+
+---
+
+詳細はこちら👉 ${pagesUrl}
+
+#ウクライナ情勢 #ロシアウクライナ戦争 #ゼレンスキー #プーチン #ドローン #国際情勢 #地政学 #停戦交渉 #日本経済
+`.trim();
+
+fs.writeFileSync('note-draft.txt', draft, 'utf8');
+console.log('✅ note-draft.txt を生成しました');
+console.log('GitHubのActionsタブからダウンロードしてNoteに貼り付けてください');

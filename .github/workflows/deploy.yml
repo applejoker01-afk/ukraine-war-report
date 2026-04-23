@@ -1,10 +1,11 @@
-name: Deploy Ukraine War Report to GitHub Pages
+name: Deploy & Post to Note
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * *'   # 日本時間 毎日00:00 (UTC 15:00)
 
 permissions:
   contents: write
@@ -12,76 +13,85 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  archive-and-deploy:
+    name: Archive & Deploy to GitHub Pages
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
     steps:
-      - name: Checkout
+      - name: チェックアウト（履歴フル取得）
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Setup Node.js
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Node.js セットアップ
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
-      - name: Install dependencies
-        run: |
-          cd scripts
-          npm install
-      
-      - name: Create archive folder
+
+      - name: 依存パッケージのインストール
+        run: cd scripts && npm install
+
+      - name: 日付別アーカイブを作成
         run: |
           mkdir -p archive
-      
-      - name: Archive current version
-        run: |
-          DATE=$(date +%Y-%m-%d)
+          DATE=$(date +'%Y-%m-%d')
           cp index.html archive/${DATE}.html
-          echo "Archived: archive/${DATE}.html"
-      
-      - name: Build archive index
+          echo "✅ archive/${DATE}.html を作成しました"
+
+      - name: アーカイブ一覧ページを生成
+        run: node scripts/build-archive.js
+
+      - name: アーカイブをコミット＆プッシュ
         run: |
-          cd scripts
-          node build-archive.js
-      
-      - name: Generate Note draft
-        run: |
-          cd scripts
-          node post-to-note.js
-        env:
-          PAGES_URL: ${{ secrets.PAGES_URL }}
-      
-      - name: Upload Note draft as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: NOTE-DRAFT
-          path: scripts/note-draft.txt
-      
-      - name: Commit archive changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add archive/
-          git diff --staged --quiet || git commit -m "Auto-archive: $(date +%Y-%m-%d)"
-          git push
-      
-      - name: Setup Pages
+          if git diff --staged --quiet; then
+            echo "変更なし・スキップ"
+          else
+            git commit -m "アーカイブ追加: $(date +'%Y-%m-%d')"
+            git push origin main
+            echo "✅ プッシュ完了"
+          fi
+
+      - name: GitHub Pages 設定
         uses: actions/configure-pages@v4
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+
+      - name: アーティファクトをアップロード
+        uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
-      
-      - name: Deploy to GitHub Pages
+
+      - name: GitHub Pages にデプロイ
         id: deployment
         uses: actions/deploy-pages@v4
+
+  post-to-note:
+    name: Post Article to Note
+    runs-on: ubuntu-latest
+    needs: archive-and-deploy
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: 依存パッケージのインストール
+        run: cd scripts && npm install
+      - name: Note下書きを生成
+        env:
+          PAGES_URL: ${{ secrets.PAGES_URL }}
+        run: node scripts/post-to-note.js
+      - name: 下書きファイルをアップロード
+        uses: actions/upload-artifact@v4
+        with:
+          name: note-draft
+          path: note-draft.txt
