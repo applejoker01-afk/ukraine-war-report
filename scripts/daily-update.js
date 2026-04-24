@@ -469,7 +469,7 @@ async function main() {
 
   // 2. HTMLにマーカーを確保（初回のみ）
   let html = readHTML();
-  html = ensureMarkers(html);
+  // マーカーはindex.htmlに直接埋め込み済み
 
   // 3. ① 上書き更新セクション
   const scriptContent   = await updateScript(articles);
