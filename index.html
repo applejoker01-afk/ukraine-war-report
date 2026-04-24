@@ -16,7 +16,7 @@
   --panel:rgba(255,255,255,0.03);--border:rgba(58,138,58,0.3);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-serif;line-height:1.7;}
+body{background:var(--navy)!important;color:var(--white)!important;font-family:'Noto Sans JP',sans-serif;line-height:1.7;}
 
 /* ── NAV ── */
 nav{position:sticky;top:0;z-index:100;background:rgba(13,26,13,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);display:flex;align-items:center;padding:0 24px;height:56px;gap:4px;flex-wrap:wrap;}
@@ -166,6 +166,8 @@ section.active{display:block;}
 
 <div class="container">
 <!-- SECTION:script-summary:START -->
+<div style="all:unset;display:block;color:var(--white);">
+</div>
 <!-- SECTION:script-summary:END -->
 <div class="script-section">
 <div class="script-h1">📋 全体構成</div>

@@ -86,7 +86,13 @@ async function callClaude(prompt, maxTokens = 1200) {
     });
     if (!res.ok) { const errText = await res.text(); throw new Error(`HTTP ${res.status}: ${errText.slice(0,300)}`); }
     const data = await res.json();
-    return data.content?.[0]?.text?.trim() || null;
+    const raw = data.content?.[0]?.text?.trim() || null;
+    if (!raw) return null;
+    // マークダウンのコードフェンスを除去
+    return raw
+      .replace(/^```(?:html|javascript|css)?\n?/gi, '')
+      .replace(/\n?```\s*$/gi, '')
+      .trim();
   } catch (e) {
     console.warn(`  ⚠ Claude API: ${e.message}`);
     return null;
@@ -152,7 +158,7 @@ async function updateScript(articles) {
 【最新ニュース見出し】
 ${headlines}
 
-※ 日付は${TODAY}として記述。HTMLタグのみ出力し、説明文は不要。
+※ 日付は${TODAY}として記述。HTMLタグのみ出力し、説明文・マークダウン・styleタグ・scriptタグは絶対に出力しない。
   `, 800);
 
   if (!summary) {
@@ -193,7 +199,7 @@ async function updateMap(articles) {
 ${headlines}
 
 【既知の基本情報】侵攻4年目。ドネツク州で激戦継続。停戦交渉膠着中。ドローン攻撃が主要な戦術。
-※HTMLタグのみ出力。
+※HTMLタグのみ出力。styleタグ・scriptタグ・マークダウン記法(```)は絶対に含めない。
   `, 600);
 
   if (!mapSummary) return null;
@@ -233,7 +239,7 @@ async function updateEconomy(articles) {
 
 【最新ニュース】
 ${headlines || '食料価格高止まり。LNG価格上昇継続。日本の支援総額1兆円超。'}
-※HTMLタグのみ出力。
+※HTMLタグのみ出力。styleタグ・scriptタグ・マークダウン記法(```)は絶対に含めない。
   `, 700);
 
   if (!econSummary) return null;
