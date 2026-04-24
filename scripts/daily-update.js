@@ -199,7 +199,7 @@ async function updateMap(articles) {
 ${headlines}
 
 【既知の基本情報】侵攻4年目。ドネツク州で激戦継続。停戦交渉膠着中。ドローン攻撃が主要な戦術。
-※HTMLタグのみ出力。styleタグ・scriptタグ・マークダウン記法(```)は絶対に含めない。
+※HTMLタグのみ出力。styleタグ・scriptタグ・マークダウン記法は絶対に含めない。
   `, 600);
 
   if (!mapSummary) return null;
@@ -239,7 +239,7 @@ async function updateEconomy(articles) {
 
 【最新ニュース】
 ${headlines || '食料価格高止まり。LNG価格上昇継続。日本の支援総額1兆円超。'}
-※HTMLタグのみ出力。styleタグ・scriptタグ・マークダウン記法(```)は絶対に含めない。
+※HTMLタグのみ出力。styleタグ・scriptタグ・マークダウン記法は絶対に含めない。
   `, 700);
 
   if (!econSummary) return null;
