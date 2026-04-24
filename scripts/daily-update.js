@@ -78,7 +78,7 @@ async function callClaude(prompt, maxTokens = 1200) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-opus-4-5',
         max_tokens: maxTokens,
         messages: [{ role: 'user', content: prompt }]
       })
