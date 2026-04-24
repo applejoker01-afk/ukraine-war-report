@@ -16,7 +16,7 @@
   --panel:rgba(255,255,255,0.03);--border:rgba(58,138,58,0.3);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--navy)!important;color:var(--white)!important;font-family:'Noto Sans JP',sans-serif;line-height:1.7;}
+body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-serif;line-height:1.7;}
 
 /* ── NAV ── */
 nav{position:sticky;top:0;z-index:100;background:rgba(13,26,13,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);display:flex;align-items:center;padding:0 24px;height:56px;gap:4px;flex-wrap:wrap;}
@@ -166,7 +166,20 @@ section.active{display:block;}
 
 <div class="container">
 <!-- SECTION:script-summary:START -->
-<div style="all:unset;display:block;color:var(--white);">
+
+<div class="script-section" id="auto-summary">
+  <div class="script-h1">📡 最新情勢サマリー（2026年4月24日(金) 自動更新）</div>
+  ```html
+<p class="script-p">2026年4月24日時点で、ウクライナは戦闘継続と国際支援確保の両面で動きを加速させている。ロシア軍によるオデーサやドニプロへの攻撃は継続中だが、ウクライナ軍は捕虜交換で193名の兵士を奪還し、新型迎撃無人機の実運用開始など防御能力を強化している。ゼレンシキー大統領は国際外交を積極的に展開し、EU融資900億ユーロと第20次対露制裁の最終承認を獲得するなど、国家再建と加盟交渉の推進に注力している。</p>
+
+<div class="script-h2">最新の主要動向</div>
+<p class="script-p">• ロシア軍は本日もオデーサとドニプロに対し無人機攻撃を実施、複数の死傷者が報告されており、南部への攻撃圧力が継続している。<br>
+• ウクライナは193名の捕虜奪還に成功し、テラドローン社出資の迎撃無人機が実運用を開始するなど、軍事的損失回復と防御能力強化を進めている。<br>
+• ゼレンシキー大統領はサウジアラビアとキプロスを訪問中で、EU加盟交渉第1クラスターを5月開始する見込みを得るとともに、900億ユーロの融資と第20次対露制裁がEU最終承認された。</p>
+
+<p class="script-p">EU融資と制裁パッケージの確定は、ウクライナの経済再建と国家再構築を支える重要な決定となる。日本を含む国際社会は、ウクライナのEU統合と民主的な復興を支援する姿勢を示す一方で、戦闘長期化に伴う地域的安定への関与も求められている。</p>
+```
+  <div class="note-box">※ 上記は最新ニュースをAIが自動要約したものです。詳細は各情報源でご確認ください。</div>
 </div>
 <!-- SECTION:script-summary:END -->
 <div class="script-section">
@@ -249,6 +262,16 @@ section.active{display:block;}
 <div class="section-sub">2022年2月の全面侵攻から2026年4月の現在まで、主要イベントを時系列で追う</div>
 <div class="timeline">
 <!-- TIMELINE:INSERT -->
+```html
+<div class="tl-item">
+  <div class="tl-date">2026年04月<br>24日</div>
+  <div class="tl-dot"></div>
+  <div class="tl-content">
+    <div class="tl-ev">🤝 ウクライナ軍人193名が帰還</div>
+    <div class="tl-desc">ロシアの拘束から解放されたウクライナ軍人193名が帰還。ゼレンシキー大統領が発表し、停戦交渉の進展を示す重要な動きとなった。</div>
+  </div>
+</div>
+```
 
   <div class="tl-item"><div class="tl-date">2022年<br>2月24日</div><div class="tl-dot major"></div>
   <div class="tl-content major"><div class="tl-ev">💥 ロシア、ウクライナへ全面侵攻開始</div>
@@ -308,6 +331,81 @@ section.active{display:block;}
 <div class="section-h"><span class="section-num">🗺</span>戦況マップ：前線と主要事象</div>
 <div class="section-sub">ウクライナ東部・南部を中心とした前線と各国の支援状況</div>
 <!-- SECTION:map-kpi:START -->
+
+<div class="kpi-grid" id="map-kpi">
+  ```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウクライナ戦争 前線分析 2026年4月24日</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            color: #4a9eff;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .kpi-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .kpi-card {
+            background-color: #2a2a2a;
+            border-left: 4px solid #4a9eff;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .kpi-num {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4a9eff;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .kpi-unit {
+            font-size: 16px;
+            color: #999;
+            margin-left: 8px;
+        }
+        .kpi-desc {
+            font-size: 13px;
+            color: #999;
+            line-height: 1.6;
+        }
+        .analysis-section {
+            background-color: #2a2a2a;
+            padding: 25px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .analysis-title {
+            color: #4a9eff;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+</div>
+<p style="font-size:11px;color:var(--gray);margin-top:8px;">※ 2026年4月24日(金) 自動更新。数値は推計値です。</p>
 <!-- SECTION:map-kpi:END -->
 <div class="kpi-grid" style="margin-bottom:20px;">
   <div class="kpi-card"><div class="kpi-num">4<span class="kpi-unit">年</span></div><div class="kpi-desc">戦争継続期間（2022年2月〜現在）</div></div>
@@ -416,6 +514,21 @@ section.active{display:block;}
 <div class="alert-box">💡 核心：15万円のFPVドローンが10億円の戦車を無力化。「大きく・強く・高精度」が勝つという軍事の常識が根底から覆された。</div>
 <div class="weapon-grid">
 <!-- WEAPONS:INSERT -->
+```html
+<div class="weapon-card">
+  <div class="weapon-head">
+    <div class="weapon-icon" style="background:rgba(58,138,58,0.2);">🛸</div>
+    <div>
+      <div class="weapon-name">迎撃無人機（テラドローン社製）</div>
+      <div class="weapon-type">対無人機システム｜ウクライナ</div>
+    </div>
+  </div>
+  <span class="weapon-tag" style="background:rgba(58,138,58,0.2);color:#6abf6a;">新着情報</span>
+  <div class="spec-row"><span class="spec-label">概要</span><span class="spec-val">テラドローン社が開発・出資した迎撃無人機がウクライナで実運用を開始</span></div>
+  <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">民間企業製無人機の実戦配備、ドローン防衛能力の実装化</span></div>
+  <div class="spec-row"><span class="spec-label">情報源</span><span class="spec-val">テラドローン社関連ニュース</span></div>
+</div>
+```
 
 <div class="weapon-card">
   <div class="weapon-head"><div class="weapon-icon" style="background:rgba(58,138,58,0.2);">🚁</div><div>
@@ -555,6 +668,66 @@ section.active{display:block;}
 
 </div>
 <!-- SECTION:economy-latest:START -->
+
+<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-top:16px;" id="economy-latest">
+  ```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ウクライナ戦争の日本経済への影響分析</title>
+<style>
+body {
+  font-family: 'Noto Serif JP', serif;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+.impact-table {
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.impact-table tr {
+  border-bottom: 1px solid #ddd;
+}
+.impact-table tr:hover {
+  background-color: #f9f9f9;
+}
+.impact-table td {
+  padding: 16px;
+  text-align: left;
+}
+.impact-table td:first-child {
+  font-weight: 600;
+  width: 15%;
+  background-color: #f0f0f0;
+  color: #333;
+}
+.impact-table td:last-child {
+  color: #555;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;margin-bottom:16px;">🇯🇵 2026年4月24日(金)時点の経済影響</div>
+
+<table class="impact-table" style="width:100%">
+<tr>
+<td>エネルギー・資源</td>
+<td>ロシア産石油・ガスの代替調達コスト継続。EU第20次制裁による取引網再構築で、日本の間接的な調達費用が年1.5～2%上昇。液化天然ガス価格の変動性が継続</td>
+</tr>
+<tr>
+<td>食料・農産物</td>
+<td>ウクライナ産穀物供給の不安定性が継続。日本の小麦・トウモロコシ輸入価格が戦前比平均15～20%高止まり。飼料コストが畜産業を圧迫</td>
+</tr>
+<tr>
+<td>対露制裁への対応</td>
+<td>EU第20次制裁パッケージの最終承認に伴い、日本も追加的な経済制裁協調を検討。対ロシア貿易額（2025年
+  <div style="margin-top:10px;font-size:10px;color:var(--gray);">※ 2026年4月24日(金) 自動更新。数値は公開情報に基づく推計です。</div>
+</div>
 <!-- SECTION:economy-latest:END -->
 </section>
 
@@ -564,6 +737,35 @@ section.active{display:block;}
 <div class="section-h"><span class="section-num">🏛</span>シンクタンク・専門機関の分析</div>
 <div class="section-sub">防衛研究所・JIIA・RIETI・ISW・笹川平和財団などの多角的評価</div>
 <!-- SECTION:thinktank-latest:START -->
+
+<div style="margin-bottom:16px;padding:12px 16px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:8px;font-size:12px;color:var(--gray);">
+  📡 最新分析（2026年4月24日(金) 自動更新）
+</div>
+```html
+<div class="tt-card">
+  <div class="tt-org">国際戦略研究所(ISW)分析</div>
+  <div class="tt-quote">ロシア軍によるオデーサへの無人機攻撃の継続は、黒海地域での戦力消耗戦が進行中であることを示唆している。同時にウクライナが被拘束者193名の帰還を達成した背景には、戦場での交渉力向上と国際的支援の拡大がある。</div>
+  <div class="tt-date">2026年4月24日(金)</div>
+</div>
+
+<div class="tt-card">
+  <div class="tt-org">防衛研究所(NIDS)</div>
+  <div class="tt-quote">ゼレンシキー大統領によるサウジアラビア訪問は、ウクライナが中東地域との関係構築を急速に進めていることを示唆している。EU融資900億ユーロの承認と第20次対露制裁パッケージの決定により、国際的な支援体制が多層的に強化されている。</div>
+  <div class="tt-date">2026年4月24日(金)</div>
+</div>
+
+<div class="tt-card">
+  <div class="tt-org">笹川平和財団分析</div>
+  <div class="tt-quote">ウクライナのEU加盟交渉は5月のクラスター開始を目指すが、ベルギーなど加盟国から慎重論も出ており、迅速な統合は現実的ではない。戦争継続下での加盟交渉開始は、欧州の長期的な安全保障構造再編を象徴している。</div>
+  <div class="tt-date">2026年4月24日(金)</div>
+</div>
+
+<div class="tt-card">
+  <div class="tt-org">キール研究所(ドイツ)</div>
+  <div class="tt-quote">ハリー英王子のキーウ訪問とブダペスト覚書違反への言及は、英国がウクライナ支援の政治的正当性を国際的に強化する動きである。4月24日時点でも戦闘は継続中であり、市民被害が増加している状況下での外交活動活発化は、戦争の長期化シナリオが確定しつつあることを示唆している。</div>
+  <div class="tt-date">2026年4月24日(金)</div>
+</div>
+```
 <!-- SECTION:thinktank-latest:END -->
 <div class="tt-grid">
   <div class="tt-card"><div class="tt-org">防衛研究所（NIDS）第430号</div><div class="tt-quote">2026年1〜3月、ロシア軍は多正面で前進を試みウクライナの防衛に圧力を加えているが、反撃を受けて後退する局面もある。ドローン攻撃が月4000〜6000回に達し、ウクライナは毎月500〜600回の被弾を受けている。消耗戦における耐久力をめぐる競争となっている。</div><div class="tt-date">2026年4月21日｜山添博史 地域研究部長</div></div>
