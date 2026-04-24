@@ -38,6 +38,11 @@ jobs:
       - name: 依存パッケージのインストール
         run: cd scripts && npm install
 
+      - name: 日次コンテンツ更新（RSS収集・AI生成）
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/daily-update.js
+
       - name: 日付別アーカイブを作成
         run: |
           mkdir -p archive
@@ -48,15 +53,15 @@ jobs:
       - name: アーカイブ一覧ページを生成
         run: node scripts/build-archive.js
 
-      - name: アーカイブをコミット＆プッシュ
+      - name: 変更をコミット＆プッシュ
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add archive/
+          git add .
           if git diff --staged --quiet; then
             echo "変更なし・スキップ"
           else
-            git commit -m "アーカイブ追加: $(date +'%Y-%m-%d')"
+            git commit -m "🤖 自動更新: $(date +'%Y-%m-%d')"
             git push origin main
             echo "✅ プッシュ完了"
           fi

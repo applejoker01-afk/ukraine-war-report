@@ -8,6 +8,7 @@
     "archive": "node build-archive.js"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "xml2js": "^0.6.2"
   }
 }
