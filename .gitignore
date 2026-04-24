@@ -1,0 +1,9 @@
+# Node.js
+scripts/node_modules/
+scripts/package-lock.json
+node_modules/
+
+# ログ・一時ファイル
+scripts/last-update.json
+note-draft.txt
+*.log
