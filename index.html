@@ -137,6 +137,7 @@ section.active{display:block;}
 .warn-box{background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.4);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:#e8b4ae;line-height:1.7;}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:600px){.grid-2{grid-template-columns:1fr;}.tl-date{width:70px;font-size:10px;}.timeline::before{left:70px;}.tl-dot{left:64px;}.tl-content{margin-left:14px;}.weapon-grid{grid-template-columns:1fr;}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 </style>
 </head>
 <body>
@@ -176,11 +177,11 @@ section.active{display:block;}
   
   <div style="background:rgba(58,138,58,0.06);border-radius:6px;padding:12px;margin-bottom:12px;border-left:3px solid var(--mid-blue);">
     <div style="font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:6px;">🤖 AI要約</div>
-    <p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• ロシアはEUの追加制裁に強く反発し、制裁による影響は最小限と主張している。一方、ウクライナはEU加盟交渉の加速を期待し、900億ユーロの融資と第20次対露制裁を歓迎している。</p>
-<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• ウクライナ軍は戦闘で前進し、ロシア拘束から193名の軍人が帰還した。しかし南部オデーサではロシア軍の無人機攻撃により多数の死傷者が発生している。</p>
-<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• ゼレンシキー大統領は外交活動を強化し、サウジアラビアとキプロスを訪問して協力体制を構築している。</p>
-<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• EU側ではウクライナ加盟交渉の加速姿勢を示す一方、ベルギー首相は加盟プロセスは迅速ではないと慎重な見通しを述べている。</p>
-<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• 日本は停戦後の障害に備え、掃海艇派遣の検討を自民党が提言するなど、戦後復興への関与を視野に入れている。</p>
+    <p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• ウクライナはEU加盟に向けた協議進展を期待しており、ゼレンシキー大統領は5月のクラスター開始を期待しているが、EU側は迅速な加盟は見込めないと慎重な姿勢を示している。</p>
+<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• EU側は900億ユーロの融資と第20次対ロ追加制裁を承認し、ウクライナへの支援継続を表明している。一方、ロシアは追加制裁の影響は最小限と反発している。</p>
+<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• 戦闘は継続しており、オデーサへのロシア軍による無人機攻撃で複数の死傷者が発生している。同時にウクライナ軍人193名がロシア拘束から帰還した。</p>
+<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• ゼレンシキー大統領はサウジアラビアやキプロスを訪問し、国際的な支持基盤の拡大と協力関係の構築を進めている。</p>
+<p style="font-size:12px;line-height:1.8;color:#ccd8cc;margin:3px 0;">• 日本は停戦後の課題に対応するため、掃海艇派遣を検討する提言がなされるなど、国際社会の一員として間接的な関与の可能性が検討されている。</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:0;">
     <div class="news-item" style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
@@ -238,6 +239,11 @@ section.active{display:block;}
 <div class="script-section">
 <div class="script-h1">第1部：背景編</div>
 <!-- TIMELINE:UPDATE:START -->
+<div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">📅 最新タイムライン更新（2026年4月25日(土)）</div>
+  <div style="font-size:13px;font-weight:700;color:var(--white);">🤝 ゼレンシキー大統領がサウジアラビア皇太子と会談</div>
+  <div style="font-size:12px;color:var(--gray);margin-top:3px;">ウクライナ大統領がサウジアラビアに到着し、皇太子と３つの協力分野について協議</div>
+</div>
 <!-- TIMELINE:UPDATE:END -->
 
 <div class="script-h2">① なぜロシアはウクライナに侵攻したのか</div>
@@ -255,6 +261,11 @@ section.active{display:block;}
 <div class="script-section">
 <div class="script-h1">第2部：戦況編</div>
 <!-- WAR:UPDATE:START -->
+<div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">🗺 戦況マップ更新</div>
+  <div style="font-size:13px;font-weight:700;color:var(--white);">2026年4月25日(土) 01:57現在の戦況図</div>
+  <div style="font-size:11px;color:var(--gray);margin-top:3px;">詳細は「<a href="#" onclick="show('map');return false;" style="color:var(--light-blue);text-decoration:none;">戦況マップ</a>」タブをご覧ください</div>
+</div>
 <!-- WAR:UPDATE:END -->
 
 <div class="script-h2">① 現在の前線状況（2026年4月）</div>
@@ -277,6 +288,12 @@ section.active{display:block;}
 <div class="script-section">
 <div class="script-h1">第4部：経済編</div>
 <!-- ECONOMY:UPDATE:START -->
+<div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">📈 最新情報（2026年4月25日(土)）</div>
+  <div style="font-size:13px;font-weight:700;"><span style="color:var(--light-blue);">経済情勢について更新</span></div>
+  
+  <div style="font-size:11px;color:var(--gray);margin-top:4px;">詳細は「<a href="#" onclick="show('economy');return false;" style="color:var(--light-blue);text-decoration:none;">経済影響</a>」タブをご覧ください</div>
+</div>
 <!-- ECONOMY:UPDATE:END -->
 <div class="alert-box">📈 詳細なグラフは <strong>「経済影響」タブ</strong> をご覧ください。</div>
 <p class="script-p">この戦争が日本に与えた経済的影響は3つに整理できます。①エネルギー価格——ロシアは世界最大級の天然ガス・石油産出国。制裁と供給不安でLNG価格が上昇し、日本の電気代にも影響が出ました。②食料価格——ウクライナとロシアは世界の小麦輸出の約28%を担っています。戦争による供給不安が世界の食料価格を押し上げました。③日本の支援コスト——日本は2026年4月時点でウクライナに対し総額1兆円以上の支援を実施しており、これが財政にも影響を与えています。</p>
@@ -298,6 +315,14 @@ section.active{display:block;}
 <div class="section-sub">2022年2月の全面侵攻から2026年4月の現在まで、主要イベントを時系列で追う</div>
 <div class="timeline">
 <!-- TIMELINE:INSERT -->
+<div class="tl-item">
+  <div class="tl-date">04月<br>25日</div>
+  <div class="tl-dot"></div>
+  <div class="tl-content">
+    <div class="tl-ev">🤝 ゼレンシキー大統領がサウジアラビア皇太子と会談</div>
+    <div class="tl-desc">ウクライナ大統領がサウジアラビアに到着し、皇太子と３つの協力分野について協議</div>
+  </div>
+</div>
 <div class="tl-item">
   <div class="tl-date">04月<br>25日</div>
   <div class="tl-dot"></div>
@@ -365,6 +390,10 @@ section.active{display:block;}
 <div class="section-h"><span class="section-num">🗺</span>戦況マップ：前線と主要事象</div>
 <div class="section-sub">ウクライナ東部・南部を中心とした前線と各国の支援状況</div>
 <!-- MAP:DATETIME -->
+<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:6px;padding:6px 14px;margin-bottom:14px;font-size:12px;">
+  <span style="color:var(--gold);font-family:'Oswald';letter-spacing:1px;">🕐 2026年4月25日(土) 01:57現在の戦況</span>
+  <span style="width:8px;height:8px;border-radius:50%;background:#e74c3c;animation:blink 1.2s ease-in-out infinite;display:inline-block;"></span>
+</div>
 <div class="kpi-grid" style="margin-bottom:20px;">
   <div class="kpi-card"><div class="kpi-num">4<span class="kpi-unit">年</span></div><div class="kpi-desc">戦争継続期間（2022年2月〜現在）</div></div>
   <div class="kpi-card"><div class="kpi-num">20<span class="kpi-unit">%</span></div><div class="kpi-desc">ロシアが占領するウクライナ領土の割合（推計）</div></div>
@@ -472,6 +501,18 @@ section.active{display:block;}
 <div class="alert-box">💡 核心：15万円のFPVドローンが10億円の戦車を無力化。「大きく・強く・高精度」が勝つという軍事の常識が根底から覆された。</div>
 <div class="weapon-grid">
 <!-- WEAPONS:INSERT -->
+<div class="weapon-card">
+  <div class="weapon-head">
+    <div class="weapon-icon" style="background:rgba(58,138,58,0.2);">🛸</div>
+    <div>
+      <div class="weapon-name">テラドローン迎撃無人機</div>
+      <div class="weapon-type">無人機|ウクライナ</div>
+    </div>
+  </div>
+  <span class="weapon-tag" style="background:rgba(58,138,58,0.2);color:#6abf6a;">2026-04-25 新着</span>
+  <div class="spec-row"><span class="spec-label">概要</span><span class="spec-val">ウクライナで迎撃無人機の実戦運用が開始</span></div>
+  <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">民間企業製の無人迎撃システムの実戦化</span></div>
+</div>
 <div class="weapon-card">
   <div class="weapon-head">
     <div class="weapon-icon" style="background:rgba(58,138,58,0.2);">🛸</div>
