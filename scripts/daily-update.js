@@ -32,6 +32,13 @@ const RSS_SOURCES = [
   { name: 'BBC World', url: 'https://feeds.bbci.co.uk/news/world/rss.xml' },
 ];
 
+// ISW専用RSSソース（複数URLを試す）
+const ISW_RSS_SOURCES = [
+  'https://iswresearch.org/feeds/posts/default',
+  'https://www.understandingwar.org/feeds/publication/0/rss.xml',
+  'https://www.understandingwar.org/rss.xml',
+];
+
 const KEYWORDS = [
   'ウクライナ','ロシア','ゼレンスキー','プーチン','ドネツク',
   'キーウ','NATO','停戦','ukraine','russia','zelensky',
@@ -393,6 +400,109 @@ function updateTimelineNotice(html, timelineItem) {
   return html;
 }
 
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ISW日々の戦況レポートを取得して戦況マップに表示
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function updateISWReport(html) {
+  if (!html.includes('<!-- MAP:ISW:START -->')) {
+    console.log('  ⚠ ISWマーカーなし・スキップ');
+    return html;
+  }
+
+  console.log('\n🔍 ISW戦況レポートを取得中...');
+
+  // 複数のISW RSSを順番に試す
+  let iswArticles = [];
+  for (const url of ISW_RSS_SOURCES) {
+    const items = await fetchRSS({ name: 'ISW', url });
+    if (items.length > 0) {
+      iswArticles = items;
+      console.log(`  ✅ ISW取得成功: ${url} (${items.length}件)`);
+      break;
+    }
+    console.log(`  ⚠ ISW取得失敗: ${url}`);
+  }
+
+  // ウクライナ関連のみフィルタ（24時間以内）
+  const now = Date.now();
+  const oneDayAgo = now - 24 * 60 * 60 * 1000;
+
+  const ukraineReports = iswArticles.filter(a => {
+    const isUkraine = /ukraine|russia|offensive|campaign assessment|ウクライナ|ロシア/i
+      .test(a.title + a.desc);
+    // 日付チェック（pubDateがある場合）
+    if (a.pubDate) {
+      const pubTime = new Date(a.pubDate).getTime();
+      const isRecent = !isNaN(pubTime) ? pubTime > oneDayAgo : true;
+      return isUkraine && isRecent;
+    }
+    return isUkraine;
+  }).slice(0, 10);
+
+  if (ukraineReports.length === 0) {
+    console.log('  ⚠ 直近24時間のISWウクライナレポートなし');
+    // 全件から最新5件を取得（日付フィルタなし）
+    const fallback = iswArticles
+      .filter(a => /ukraine|russia|offensive|campaign/i.test(a.title + a.desc))
+      .slice(0, 5);
+    if (fallback.length === 0) return html;
+    ukraineReports.push(...fallback);
+  }
+
+  // リストHTMLを生成
+  const listItems = ukraineReports.map(a => {
+    const title = a.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const date  = a.pubDate
+      ? new Date(a.pubDate).toLocaleDateString('ja-JP', {month:'long', day:'numeric', hour:'2-digit', minute:'2-digit'})
+      : '';
+    const url = a.link || '#';
+    return `
+    <li style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;flex-direction:column;gap:3px;">
+      <a href="${url}" target="_blank" rel="noopener"
+         style="font-size:12px;color:#ccd8cc;text-decoration:none;line-height:1.5;font-weight:500;"
+         onmouseover="this.style.color='#6abf6a'"
+         onmouseout="this.style.color='#ccd8cc'">
+        ${title}
+      </a>
+      ${date ? `<span style="font-size:10px;color:var(--gray);">${date}</span>` : ''}
+    </li>`;
+  }).join('');
+
+  const iswBlock = `<!-- MAP:ISW:START -->
+<div style="margin-top:20px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+    <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;color:var(--light-blue);">
+      📋 ISW 戦況レポート
+      <span style="font-size:10px;font-weight:400;color:var(--gray);margin-left:8px;">Institute for the Study of War</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#e74c3c;animation:blink 1.2s ease-in-out infinite;display:inline-block;"></span>
+      <span style="font-size:10px;color:var(--gray);">自動更新：${TODAY}</span>
+    </div>
+  </div>
+  <ul style="list-style:none;padding:0;margin:0;">
+    ${listItems}
+  </ul>
+  <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-size:10px;color:var(--gray);">※ ISW公式サイトより自動収集。ウクライナ関連のみ表示。</span>
+    <a href="https://www.understandingwar.org/" target="_blank" rel="noopener"
+       style="font-size:10px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);">
+      ISW公式サイト →
+    </a>
+  </div>
+</div>
+<!-- MAP:ISW:END -->`;
+
+  html = html.replace(
+    /<!-- MAP:ISW:START -->[\s\S]*?<!-- MAP:ISW:END -->/,
+    iswBlock
+  );
+
+  console.log(`  ✅ ISW戦況レポート ${ukraineReports.length}件を表示`);
+  return html;
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ② 戦況マップに現在時刻・戦況編に更新通知
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -630,6 +740,7 @@ async function main() {
 
   // 2. HTML更新（元コンテンツを保護しながら更新）
   let html = readHTML();
+  html = await updateISWReport(html);                 // ISW戦況レポート更新
   html = await updateNewsBox(html, articles);          // ニュースボックス上書き
   const tlResult = await prependTimeline(html, articles); // タイムライン先頭追記
   html = tlResult.html;
