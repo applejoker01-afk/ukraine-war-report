@@ -201,7 +201,7 @@ ${headlines}`, 500
 async function prependTimeline(html, articles) {
   if (!html.includes('<!-- TIMELINE:INSERT -->')) {
     console.log('  ⚠ タイムラインマーカーなし・スキップ');
-    return html;
+    return { html, item: null };
   }
 
   console.log('\n📅 タイムラインに新イベントを追記中...');
@@ -229,12 +229,12 @@ ${headlines}`, 300
 
   if (!item || item.includes('SKIP') || !item.includes('tl-item')) {
     console.log('  ⚠ 追記なし');
-    return html;
+    return { html, item: null };
   }
 
   html = html.replace('<!-- TIMELINE:INSERT -->', `<!-- TIMELINE:INSERT -->\n${item}`);
   console.log('  ✅ タイムライン追記完了');
-  return html;
+  return { html, item };
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -362,6 +362,154 @@ ${weaponNews}`, 300
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // シンクタンクに新カードを先頭追記
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ① 背景編に最新タイムライン情報を掲載
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function updateTimelineNotice(html, timelineItem) {
+  if (!html.includes('<!-- TIMELINE:UPDATE:START -->')) return html;
+  if (!timelineItem || timelineItem.includes('SKIP')) return html;
+
+  // タイムラインのtl-evとtl-descを抽出
+  const evMatch  = timelineItem.match(/<div class="tl-ev">(.*?)<\/div>/s);
+  const descMatch= timelineItem.match(/<div class="tl-desc">(.*?)<\/div>/s);
+  const evText   = evMatch  ? evMatch[1].trim()   : '';
+  const descText = descMatch? descMatch[1].trim()  : '';
+  if (!evText) return html;
+
+  const notice = `<!-- TIMELINE:UPDATE:START -->
+<div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">📅 最新タイムライン更新（${TODAY}）</div>
+  <div style="font-size:13px;font-weight:700;color:var(--white);">${evText}</div>
+  ${descText ? `<div style="font-size:12px;color:var(--gray);margin-top:3px;">${descText}</div>` : ''}
+</div>
+<!-- TIMELINE:UPDATE:END -->`;
+
+  html = html.replace(
+    /<!-- TIMELINE:UPDATE:START -->[\s\S]*?<!-- TIMELINE:UPDATE:END -->/,
+    notice
+  );
+  console.log('  ✅ 背景編に最新タイムライン情報を掲載');
+  return html;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ② 戦況マップに現在時刻・戦況編に更新通知
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function updateMapDatetime(html) {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('ja-JP', {
+    year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
+  });
+  const timeStr = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+  const datetime = `${dateStr} ${timeStr}`;
+
+  // 戦況マップの現在時刻表示
+  if (html.includes('<!-- MAP:DATETIME -->')) {
+    const mapBlock = `<!-- MAP:DATETIME -->
+<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:6px;padding:6px 14px;margin-bottom:14px;font-size:12px;">
+  <span style="color:var(--gold);font-family:'Oswald';letter-spacing:1px;">🕐 ${datetime}現在の戦況</span>
+  <span style="width:8px;height:8px;border-radius:50%;background:#e74c3c;animation:blink 1.2s ease-in-out infinite;display:inline-block;"></span>
+</div>`;
+    html = html.replace('<!-- MAP:DATETIME -->', mapBlock);
+  }
+
+  // 戦況編に「〇月〇日〇時現在の戦況図」を更新
+  if (html.includes('<!-- WAR:UPDATE:START -->')) {
+    const warNotice = `<!-- WAR:UPDATE:START -->
+<div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">🗺 戦況マップ更新</div>
+  <div style="font-size:13px;font-weight:700;color:var(--white);">${datetime}現在の戦況図</div>
+  <div style="font-size:11px;color:var(--gray);margin-top:3px;">詳細は「<a href="#" onclick="show('map');return false;" style="color:var(--light-blue);text-decoration:none;">戦況マップ</a>」タブをご覧ください</div>
+</div>
+<!-- WAR:UPDATE:END -->`;
+    html = html.replace(
+      /<!-- WAR:UPDATE:START -->[\s\S]*?<!-- WAR:UPDATE:END -->/,
+      warNotice
+    );
+  }
+
+  // blinkerアニメーションをCSSに追加（未追加の場合のみ）
+  if (!html.includes('@keyframes blink')) {
+    html = html.replace(
+      '</style>',
+      `@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+</style>`
+    );
+  }
+
+  console.log(`  ✅ 戦況マップに現在時刻（${datetime}）を表示`);
+  return html;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ③ 第4部：経済編に最新経済ニュースを掲載
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function updateEconomyNotice(html, articles) {
+  if (!html.includes('<!-- ECONOMY:UPDATE:START -->')) return html;
+
+  const econArticles = articles.filter(a =>
+    /経済|金融|制裁|支援|GDP|貿易|インフレ|食料|エネルギー|LNG|原油|小麦|財政|予算/i
+      .test(a.title + a.desc)
+  ).slice(0, 5);
+
+  if (econArticles.length === 0) {
+    console.log('  ⚠ 経済ニュースなし・スキップ');
+    return html;
+  }
+
+  // Claudeに一番重要なトピックを1件選ばせる
+  const headlines = econArticles.map((a, i) =>
+    `${i+1}. [${a.source}] ${a.title}`
+  ).join('\n');
+
+  const urlMap = {};
+  econArticles.forEach((a, i) => { urlMap[i+1] = a.link || ''; });
+
+  const result = await callClaude(
+`以下の経済ニュースから最も重要なものを1件選んでください。
+
+【出力ルール】
+JSON形式のみ（コードブロック不要）
+{"source_num": 番号, "topic": "トピック名（15文字以内）", "summary": "概要（40文字以内）"}
+
+【ニュース】
+${headlines}`, 200
+  );
+
+  let econTopic = '経済情勢';
+  let econSummary = '';
+  let econUrl = '';
+
+  if (result) {
+    try {
+      const parsed = JSON.parse(result);
+      econTopic   = parsed.topic   || econTopic;
+      econSummary = parsed.summary || '';
+      econUrl     = urlMap[parsed.source_num] || '';
+    } catch(e) { /* フォールバック */ }
+  }
+
+  const linkOpen  = econUrl ? `<a href="${econUrl}" target="_blank" rel="noopener" style="color:var(--light-blue);text-decoration:none;border-bottom:1px solid rgba(106,191,106,0.3);">` : '<span style="color:var(--light-blue);">';
+  const linkClose = econUrl ? '</a>' : '</span>';
+
+  const notice = `<!-- ECONOMY:UPDATE:START -->
+<div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">📈 最新情報（${TODAY}）</div>
+  <div style="font-size:13px;font-weight:700;">${linkOpen}${econTopic}について更新${linkClose}</div>
+  ${econSummary ? `<div style="font-size:12px;color:var(--gray);margin-top:3px;">${econSummary}</div>` : ''}
+  <div style="font-size:11px;color:var(--gray);margin-top:4px;">詳細は「<a href="#" onclick="show('economy');return false;" style="color:var(--light-blue);text-decoration:none;">経済影響</a>」タブをご覧ください</div>
+</div>
+<!-- ECONOMY:UPDATE:END -->`;
+
+  html = html.replace(
+    /<!-- ECONOMY:UPDATE:START -->[\s\S]*?<!-- ECONOMY:UPDATE:END -->/,
+    notice
+  );
+  console.log(`  ✅ 経済編に最新情報（${econTopic}）を掲載`);
+  return html;
+}
+
 async function prependThinktank(html, articles) {
   if (!html.includes('<!-- THINKTANK:INSERT -->')) {
     console.log('  ⚠ シンクタンクマーカーなし・スキップ');
@@ -482,10 +630,14 @@ async function main() {
 
   // 2. HTML更新（元コンテンツを保護しながら更新）
   let html = readHTML();
-  html = await updateNewsBox(html, articles);     // ニュースボックス上書き
-  html = await prependTimeline(html, articles);   // タイムライン先頭追記
-  html = await prependWeapons(html, articles);    // 兵器解説先頭追記
-  html = await prependThinktank(html, articles);  // シンクタンク先頭追記
+  html = await updateNewsBox(html, articles);          // ニュースボックス上書き
+  const tlResult = await prependTimeline(html, articles); // タイムライン先頭追記
+  html = tlResult.html;
+  html = updateTimelineNotice(html, tlResult.item);    // ① 背景編に更新情報
+  html = updateMapDatetime(html);                       // ② 戦況マップ・戦況編更新
+  html = await updateEconomyNotice(html, articles);    // ③ 経済編に最新情報
+  html = await prependWeapons(html, articles);         // 兵器解説先頭追記
+  html = await prependThinktank(html, articles);       // シンクタンク先頭追記
 
   // 3. 保存
   writeHTML(html);
