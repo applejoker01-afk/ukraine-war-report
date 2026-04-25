@@ -246,54 +246,205 @@ async function prependWeapons(html, articles) {
     return html;
   }
 
-  const weaponNews = articles.filter(a =>
+  // 兵器関連記事をURLごと保持
+  const weaponArticles = articles.filter(a =>
     /ドローン|ミサイル|兵器|武器|F-16|ATACMS|パトリオット|drone|missile|weapon/i
       .test(a.title + a.desc)
-  ).slice(0, 4).map((a, i) => `${i+1}. ${a.title}`).join('\n');
+  ).slice(0, 6);
 
-  if (!weaponNews) {
+  if (weaponArticles.length === 0) {
     console.log('  ⚠ 兵器関連ニュースなし・スキップ');
     return html;
   }
 
+  // URLマップを作成（番号→記事情報）
+  const urlMap = {};
+  const weaponNews = weaponArticles.map((a, i) => {
+    urlMap[i + 1] = { url: a.link || '', title: a.title, source: a.source };
+    return `${i+1}. [${a.source}] ${a.title}`;
+  }).join('\n');
+
   console.log('\n🔫 兵器解説に新情報を追記中...');
-  const card = await callClaude(
+
+  const result = await callClaude(
 `以下の兵器関連ニュースから最重要の新情報を1件選んでください。
 
 【出力ルール】
-- 以下のHTML形式のみ出力（マークダウン・コードブロック不要）
-- 重要な新情報がなければ <!-- SKIP --> とだけ出力
+- 以下のJSON形式のみ出力（マークダウン・コードブロック不要）
+- 重要な新情報がなければ {"skip": true} とだけ出力
+- source_nums には参考にしたニュースの番号を配列で記載（複数可）
 
-<div class="weapon-card">
-  <div class="weapon-head">
-    <div class="weapon-icon" style="background:rgba(58,138,58,0.2);">絵文字</div>
-    <div>
-      <div class="weapon-name">兵器・技術名</div>
-      <div class="weapon-type">種別｜使用国</div>
-    </div>
-  </div>
-  <span class="weapon-tag" style="background:rgba(58,138,58,0.2);color:#6abf6a;">${TODAY_ISO} 新着</span>
-  <div class="spec-row"><span class="spec-label">概要</span><span class="spec-val">30文字以内</span></div>
-  <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">30文字以内</span></div>
-</div>
+{"skip": false, "source_nums": [番号], "icon": "絵文字", "name": "兵器・技術名", "type": "種別｜使用国", "summary": "概要30文字以内", "significance": "意義30文字以内"}
 
 【ニュース】
-${weaponNews}`, 400
+${weaponNews}`, 300
   );
 
-  if (!card || card.includes('SKIP') || !card.includes('weapon-card')) {
-    console.log('  ⚠ 追記なし');
+  if (!result) {
+    console.log('  ⚠ 追記なし（API未応答）');
     return html;
   }
 
+  let parsed;
+  try {
+    parsed = JSON.parse(result);
+  } catch(e) {
+    console.warn('  ⚠ JSONパース失敗・スキップ');
+    return html;
+  }
+
+  if (parsed.skip || !parsed.name) {
+    console.log('  ⚠ 追記なし（重要な情報なし）');
+    return html;
+  }
+
+  // 兵器カードHTMLを生成
+  const card = `<div class="weapon-card">
+  <div class="weapon-head">
+    <div class="weapon-icon" style="background:rgba(58,138,58,0.2);">${parsed.icon || '🔫'}</div>
+    <div>
+      <div class="weapon-name">${parsed.name}</div>
+      <div class="weapon-type">${parsed.type || ''}</div>
+    </div>
+  </div>
+  <span class="weapon-tag" style="background:rgba(58,138,58,0.2);color:#6abf6a;">${TODAY_ISO} 新着</span>
+  <div class="spec-row"><span class="spec-label">概要</span><span class="spec-val">${parsed.summary || ''}</span></div>
+  <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">${parsed.significance || ''}</span></div>
+</div>`;
+
   html = html.replace('<!-- WEAPONS:INSERT -->', `<!-- WEAPONS:INSERT -->\n${card}`);
-  console.log('  ✅ 兵器解説追記完了');
+
+  // 情報源リストを更新（WEAPONS:SOURCESマーカー）
+  if (html.includes('<!-- WEAPONS:SOURCES -->')) {
+    // 使用した記事のURLリストを生成
+    const sourceNums = Array.isArray(parsed.source_nums) ? parsed.source_nums : [parsed.source_nums];
+    const sourceLinks = sourceNums
+      .filter(n => urlMap[n] && urlMap[n].url)
+      .map(n => {
+        const a = urlMap[n];
+        const safeTitle = a.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        return `<li style="margin:4px 0;">
+          <a href="${a.url}" target="_blank" rel="noopener"
+             style="color:#6abf6a;font-size:11px;text-decoration:none;border-bottom:1px solid rgba(106,191,106,0.3);"
+             onmouseover="this.style.borderBottomColor='#6abf6a'"
+             onmouseout="this.style.borderBottomColor='rgba(106,191,106,0.3)'">
+            [${a.source}] ${safeTitle}
+          </a>
+        </li>`;
+      }).join('\n');
+
+    if (sourceLinks) {
+      // 既存のSOURCESブロックを上書き
+      const sourcesBlock = `<!-- WEAPONS:SOURCES -->
+<div style="margin-top:20px;padding:14px 18px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;">
+  <div style="font-size:11px;color:var(--gold);letter-spacing:1.5px;margin-bottom:10px;font-family:'Oswald';">📎 情報源リスト（自動収集）</div>
+  <ul style="list-style:none;padding:0;margin:0;">
+    ${sourceLinks}
+  </ul>
+  <div style="font-size:10px;color:var(--gray);margin-top:8px;">最終更新：${TODAY}</div>
+</div>`;
+
+      html = html.replace(
+        /<!-- WEAPONS:SOURCES -->[\s\S]*?(?=<div class="warn-box"|<!-- WEAPONS:SOURCES -->$)/,
+        sourcesBlock + '\n'
+      );
+    }
+  }
+
+  console.log(`  ✅ 兵器解説追記完了（${parsed.name}）`);
   return html;
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // メイン処理
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// シンクタンクに新カードを先頭追記
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function prependThinktank(html, articles) {
+  if (!html.includes('<!-- THINKTANK:INSERT -->')) {
+    console.log('  ⚠ シンクタンクマーカーなし・スキップ');
+    return html;
+  }
+
+  // 分析・評価に関する記事に絞る（URLも保持）
+  const analysisArticles = articles.filter(a =>
+    /分析|評価|見解|報告|研究|専門家|シンクタンク|政策|戦略|安全保障|外交|停戦|交渉|支援|制裁/i
+      .test(a.title + a.desc)
+  ).slice(0, 6);
+
+  if (analysisArticles.length === 0) {
+    console.log('  ⚠ シンクタンク関連ニュースなし・スキップ');
+    return html;
+  }
+
+  // URLマップを作成（番号→URL）
+  const urlMap = {};
+  const analysisNews = analysisArticles
+    .map((a, i) => {
+      urlMap[i + 1] = a.link || '';
+      return `${i+1}. [${a.source}] ${a.title} — ${a.desc.slice(0, 80)}`;
+    }).join('\n');
+
+  console.log('\n🏛 シンクタンクに新カードを追記中...');
+
+  // Claudeに「何番のニュースを使ったか」も返してもらう
+  const result = await callClaude(
+`あなたは国際安全保障・ウクライナ問題の専門アナリストです。
+以下のニュースをもとに、${TODAY}時点での専門的な分析・見解を1件作成してください。
+
+【出力ルール】
+- 以下のJSON形式のみ出力（マークダウン・コードブロック不要）
+- 重要な新分析がなければ {"skip": true} とだけ出力
+- org には情報源の機関名・メディア名を記載
+- source_num には使用したニュースの番号（1〜6の数字）を記載
+
+{"skip": false, "source_num": 番号, "org": "機関名・メディア名", "quote": "分析・見解（80〜120文字）"}
+
+【最新ニュース】
+${analysisNews}`, 300
+  );
+
+  if (!result) {
+    console.log('  ⚠ 追記なし（API未応答）');
+    return html;
+  }
+
+  // JSONをパース
+  let parsed;
+  try {
+    parsed = JSON.parse(result);
+  } catch(e) {
+    console.warn('  ⚠ JSONパース失敗・スキップ');
+    return html;
+  }
+
+  if (parsed.skip || !parsed.org || !parsed.quote) {
+    console.log('  ⚠ 追記なし（重要な分析なし）');
+    return html;
+  }
+
+  // 対応するURLを取得
+  const sourceUrl = urlMap[parsed.source_num] || '';
+  const orgHTML = sourceUrl
+    ? `<a href="${sourceUrl}" target="_blank" rel="noopener"
+         style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);"
+         onmouseover="this.style.borderBottomColor='var(--gold)'"
+         onmouseout="this.style.borderBottomColor='rgba(201,168,76,0.4)'">${parsed.org} 🔗</a>`
+    : parsed.org;
+
+  const card = `<div class="tt-card">
+  <div class="tt-org">${orgHTML}</div>
+  <div class="tt-quote">${parsed.quote.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+  <div class="tt-date">${TODAY}｜自動収集</div>
+</div>`;
+
+  html = html.replace('<!-- THINKTANK:INSERT -->', `<!-- THINKTANK:INSERT -->\n${card}`);
+  console.log(`  ✅ シンクタンク追記完了（${parsed.org} / ${sourceUrl || 'URLなし'}）`);
+  return html;
+}
+
 async function main() {
   console.log('\n🚀 ウクライナレポート 毎日自動更新 開始');
   console.log(`   実行日時: ${TODAY}`);
@@ -334,6 +485,7 @@ async function main() {
   html = await updateNewsBox(html, articles);     // ニュースボックス上書き
   html = await prependTimeline(html, articles);   // タイムライン先頭追記
   html = await prependWeapons(html, articles);    // 兵器解説先頭追記
+  html = await prependThinktank(html, articles);  // シンクタンク先頭追記
 
   // 3. 保存
   writeHTML(html);
