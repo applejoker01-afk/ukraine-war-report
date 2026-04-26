@@ -57,17 +57,31 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 変更をコミット前に最新を取得
+          git fetch origin main
+
+          # ローカルの変更を一時保存
           git add index.html archive/
-          git stash
-          git pull --rebase origin main
-          git stash pop || true
-          git add index.html archive/
-          if git diff --staged --quiet; then
-            echo "No changes"
-          else
-            git commit -m "Auto update $(date +'%Y-%m-%d')"
-            git push origin main
-          fi
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+
+          # コミット作成
+          git commit -m "Auto update $(date +'%Y-%m-%d')"
+
+          # リモートの変更をrebaseして取り込む
+          git rebase origin/main || (
+            git rebase --abort
+            echo "Rebase failed, trying merge..."
+            git reset HEAD~1
+            git stash
+            git pull --no-rebase origin main
+            git stash pop
+            git add index.html archive/
+            git diff --staged --quiet || git commit -m "Auto update $(date +'%Y-%m-%d') [merged]"
+          )
+
+          git push origin main
+          echo "Push completed"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
