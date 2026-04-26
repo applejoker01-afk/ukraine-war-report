@@ -58,28 +58,28 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 変更をコミット前に最新を取得
-          git fetch origin main
-
-          # ローカルの変更を一時保存
+          # 全変更をステージング
           git add index.html archive/
-          git diff --staged --quiet && echo "No changes to commit" && exit 0
 
-          # コミット作成
+          # 変更がなければスキップ
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          # リモートの最新を取得してからコミット
+          git pull --rebase origin main
+
+          # 再度ステージング（pullで変更が混ざった場合に備えて）
+          git add index.html archive/
+
+          # 変更がなければスキップ
+          if git diff --staged --quiet; then
+            echo "No changes after pull"
+            exit 0
+          fi
+
           git commit -m "Auto update $(date +'%Y-%m-%d')"
-
-          # リモートの変更をrebaseして取り込む
-          git rebase origin/main || (
-            git rebase --abort
-            echo "Rebase failed, trying merge..."
-            git reset HEAD~1
-            git stash
-            git pull --no-rebase origin main
-            git stash pop
-            git add index.html archive/
-            git diff --staged --quiet || git commit -m "Auto update $(date +'%Y-%m-%d') [merged]"
-          )
-
           git push origin main
           echo "Push completed"
 
