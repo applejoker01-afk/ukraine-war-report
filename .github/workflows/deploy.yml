@@ -58,27 +58,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 全変更をステージング
-          git add index.html archive/
+          # node_modulesなど不要ファイルを除外
+          cat > .gitignore << 'EOF'
+          scripts/node_modules/
+          scripts/package-lock.json
+          note-draft.txt
+          *.log
+          EOF
 
-          # 変更がなければスキップ
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
+          # 対象ファイルのみステージング
+          git add index.html archive/ .gitignore
+          git diff --staged --quiet && echo "No changes" && exit 0
 
-          # リモートの最新を取得してからコミット
-          git pull --rebase origin main
+          # 不要ファイルをgitの追跡から除外
+          git rm -r --cached scripts/node_modules/ 2>/dev/null || true
+          git rm --cached scripts/package-lock.json 2>/dev/null || true
 
-          # 再度ステージング（pullで変更が混ざった場合に備えて）
-          git add index.html archive/
-
-          # 変更がなければスキップ
-          if git diff --staged --quiet; then
-            echo "No changes after pull"
-            exit 0
-          fi
-
+          # コミット
           git commit -m "Auto update $(date +'%Y-%m-%d')"
           git push origin main
           echo "Push completed"
