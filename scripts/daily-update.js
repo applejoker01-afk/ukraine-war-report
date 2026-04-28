@@ -170,7 +170,7 @@ ${headlines}`, 500
   const newsBlock = `<!-- NEWS_START -->
 <div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin:20px 0;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-    <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;color:var(--light-blue);">📡 最新ニュース</div>
+    <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;color:#FFD700;">🆙 最新ニュース</div>
     <div style="font-size:10px;color:var(--gray);">自動更新：${TODAY}</div>
   </div>
   ${summaryHTML ? `
@@ -314,7 +314,7 @@ ${weaponNews}`, 300
       <div class="weapon-type">${parsed.type || ''}</div>
     </div>
   </div>
-  <span class="weapon-tag" style="background:rgba(58,138,58,0.2);color:#6abf6a;">${TODAY_ISO} 新着</span>
+  <span class="weapon-tag" style="background:rgba(255,215,0,0.15);color:#FFD700;">🆙 ${TODAY_ISO} 新着</span>
   <div class="spec-row"><span class="spec-label">概要</span><span class="spec-val">${parsed.summary || ''}</span></div>
   <div class="spec-row"><span class="spec-label">意義</span><span class="spec-val">${parsed.significance || ''}</span></div>
 </div>`;
@@ -386,8 +386,8 @@ function updateTimelineNotice(html, timelineItem) {
 
   const notice = `<!-- TIMELINE:UPDATE:START -->
 <div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
-  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">📅 最新タイムライン更新（${TODAY}）</div>
-  <div style="font-size:13px;font-weight:700;color:var(--white);">${evText}</div>
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">🆙 最新タイムライン更新（${TODAY}）</div>
+  <div style="font-size:13px;font-weight:700;color:#FFD700;">${evText}</div>
   ${descText ? `<div style="font-size:12px;color:var(--gray);margin-top:3px;">${descText}</div>` : ''}
 </div>
 <!-- TIMELINE:UPDATE:END -->`;
@@ -473,7 +473,7 @@ async function updateISWReport(html) {
 <div style="margin-top:20px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
     <div style="font-family:'Noto Serif JP';font-size:15px;font-weight:700;color:var(--light-blue);">
-      📋 ISW 戦況レポート
+      🆙 ISW 戦況レポート
       <span style="font-size:10px;font-weight:400;color:var(--gray);margin-left:8px;">Institute for the Study of War</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
@@ -528,8 +528,8 @@ function updateMapDatetime(html) {
   if (html.includes('<!-- WAR:UPDATE:START -->')) {
     const warNotice = `<!-- WAR:UPDATE:START -->
 <div style="background:rgba(58,138,58,0.08);border-left:3px solid var(--mid-blue);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0 16px;">
-  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">🗺 戦況マップ更新</div>
-  <div style="font-size:13px;font-weight:700;color:var(--white);">${datetime}現在の戦況図</div>
+  <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;margin-bottom:5px;font-family:'Oswald';">🆙 戦況マップ更新</div>
+  <div style="font-size:13px;font-weight:700;color:#FFD700;">${datetime}現在の戦況図</div>
   <div style="font-size:11px;color:var(--gray);margin-top:3px;">詳細は「<a href="#" onclick="show('map');return false;" style="color:var(--light-blue);text-decoration:none;">戦況マップ</a>」タブをご覧ください</div>
 </div>
 <!-- WAR:UPDATE:END -->`;
@@ -695,7 +695,7 @@ ${analysisNews}`, 300
   const card = `<div class="tt-card">
   <div class="tt-org">${orgHTML}</div>
   <div class="tt-quote">${parsed.quote.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-  <div class="tt-date">${TODAY}｜自動収集</div>
+  <div class="tt-date" style="color:#FFD700;">🆙 ${TODAY}｜自動収集</div>
 </div>`;
 
   html = html.replace('<!-- THINKTANK:INSERT -->', `<!-- THINKTANK:INSERT -->\n${card}`);
